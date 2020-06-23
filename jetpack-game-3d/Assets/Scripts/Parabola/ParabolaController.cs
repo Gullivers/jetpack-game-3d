@@ -31,10 +31,13 @@ public class ParabolaController : MonoBehaviour
 
     //gizmo
     protected ParabolaFly gizmo;
+    public ParabolaFly Dots2;
 
     //draw
     protected ParabolaFly parabolaFly;
     public Vector3[] Dots;
+    [SerializeField] Transform[] trajectoryDots;
+    [SerializeField] Transform trajectoryparent;
 
     void OnDrawGizmos()
     {
@@ -57,7 +60,6 @@ public class ParabolaController : MonoBehaviour
             Gizmos.color = new Color(mag, 0, 0, 1);
             Gizmos.DrawLine(prevPos, currPos);
             Gizmos.DrawSphere(currPos, 0.01f);
-            Dots[c]=currPos;
             prevPos = currPos;
         }
     }
@@ -66,9 +68,13 @@ public class ParabolaController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
- 
+        Dots2 = new ParabolaFly(ParabolaRoot.transform);
         parabolaFly = new ParabolaFly(ParabolaRoot.transform);
-
+        for (int i = 0; i < 50; i++)
+        {
+            trajectoryDots[i] = trajectoryparent.GetChild(i).transform;
+        }
+        trajectoryparent.gameObject.SetActive(false);
         if (Autostart)
         {
             RefreshTransforms(Speed);
@@ -77,10 +83,10 @@ public class ParabolaController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         nextParbola = false;
-
+        SetDots();
         if (Animation && parabolaFly != null && animationTime < parabolaFly.GetDuration())
         {
             int parabolaIndexBefore;
@@ -103,7 +109,28 @@ public class ParabolaController : MonoBehaviour
             Animation = false;
         }
 
+
     }
+    public void SetDots()
+    {
+
+        Dots2.RefreshTransforms(1f);
+        int accur = 50;
+        Vector3 prevPos = Dots2.Points[0].position;
+        for (int c = 1; c <= accur; c++)
+        {
+            float currTime = c * Dots2.GetDuration() / accur;
+            Vector3 currPos = Dots2.GetPositionAtTime(currTime);
+            //float mag = (currPos - prevPos).magnitude * 2;
+
+            trajectoryDots[c - 1].transform.position = currPos;
+            Dots[c] = currPos;
+            prevPos = currPos;
+
+
+        }
+    }
+
 
     public void FollowParabola()
     {
@@ -162,7 +189,7 @@ public class ParabolaController : MonoBehaviour
     {
 
         public Transform[] Points;
-        protected Parabola3D[] parabolas;
+        public Parabola3D[] parabolas;
         protected float[] partDuration;
         protected float completeDuration;
 
