@@ -197,7 +197,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34345870}
-  m_LocalRotation: {x: -0.22123924, y: 0.06376605, z: -0.014499412, w: -0.9730246}
+  m_LocalRotation: {x: -0.22123924, y: 0.06376605, z: -0.014499414, w: -0.9730246}
   m_LocalPosition: {x: 1.29, y: 4.74, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 983193530}
   - component: {fileID: 983193529}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: RoadCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,9 +495,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1083932967}
-  - {fileID: 1838459495}
   - {fileID: 1530747636}
+  - {fileID: 1838459495}
+  - {fileID: 1083932967}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025952106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c86db617ea73de94c8ac7dff235e1aaf, type: 3}
   m_Name: 
@@ -517,6 +517,7 @@ MonoBehaviour:
   MiddlePoint: {fileID: 1838459495}
   EndPoint: {fileID: 1530747636}
   Player: {fileID: 1648391343}
+  EndPointZmultipler: 3
 --- !u!1 &1083932966
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +530,7 @@ GameObject:
   - component: {fileID: 1083932969}
   - component: {fileID: 1083932968}
   m_Layer: 0
-  m_Name: startPoint
+  m_Name: endPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,11 +544,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083932966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 12.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1025952107}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1083932968
 MeshFilter:
@@ -654,7 +655,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425281048}
-  m_LocalRotation: {x: -0.22123924, y: 0.06376605, z: -0.014499412, w: -0.9730246}
+  m_LocalRotation: {x: -0.22123924, y: 0.06376605, z: -0.014499414, w: -0.9730246}
   m_LocalPosition: {x: 1.29, y: 4.74, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -674,7 +675,7 @@ GameObject:
   - component: {fileID: 1530747638}
   - component: {fileID: 1530747637}
   m_Layer: 0
-  m_Name: endPoint
+  m_Name: StartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,11 +689,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530747635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 40}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1025952107}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1530747637
 MeshFilter:
@@ -849,6 +850,8 @@ MonoBehaviour:
   ForwardSpeed: 3
   UpSpeed: 10
   Forwardacceleration: 0.1
+  JetPackOn: 0
+  FallingOn: 0
 --- !u!114 &1648391345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba207b06c6dd16d479ef541dd927e4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 5
   ParabolaRoot: {fileID: 1025952106}
   Autostart: 0
   Animation: 0
@@ -891,7 +894,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838459494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 20}
+  m_LocalPosition: {x: 0, y: 5, z: 7.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1025952107}

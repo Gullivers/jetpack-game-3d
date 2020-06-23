@@ -34,6 +34,7 @@ public class ParabolaController : MonoBehaviour
 
     //draw
     protected ParabolaFly parabolaFly;
+    public Vector3[] Dots;
 
     void OnDrawGizmos()
     {
@@ -56,6 +57,7 @@ public class ParabolaController : MonoBehaviour
             Gizmos.color = new Color(mag, 0, 0, 1);
             Gizmos.DrawLine(prevPos, currPos);
             Gizmos.DrawSphere(currPos, 0.01f);
+            Dots[c]=currPos;
             prevPos = currPos;
         }
     }
@@ -64,7 +66,7 @@ public class ParabolaController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+ 
         parabolaFly = new ParabolaFly(ParabolaRoot.transform);
 
         if (Autostart)

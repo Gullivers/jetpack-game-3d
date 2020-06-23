@@ -16,11 +16,13 @@ public class GG_ParabolaPointController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpeedZ = Player.GetComponent<GG_JetpackMovement>().ForwardSpeed;
-        StartPoint.position = Player.position;
-        EndPoint.position = new Vector3(Player.position.x, 0, Player.position.z + (SpeedZ * EndPointZmultipler));
-        MiddlePointZ = Player.position.z+((EndPoint.position.z - Player.position.z)/2);
-        MiddlePoint.position = new Vector3(Player.position.x, (Player.position.y + 5f), MiddlePointZ);
-
+        if (!Player.GetComponent<GG_JetpackMovement>().FallingOn)
+        {
+            SpeedZ = Player.GetComponent<GG_JetpackMovement>().ForwardSpeed;
+            StartPoint.position = Player.position;
+            EndPoint.position = new Vector3(Player.position.x, 0, Player.position.z + (SpeedZ * EndPointZmultipler));
+            MiddlePointZ = Player.position.z + ((EndPoint.position.z - Player.position.z) / 2);
+            MiddlePoint.position = new Vector3(Player.position.x, (Player.position.y + 5f), MiddlePointZ);
+        }
     }
 }
