@@ -22,7 +22,7 @@ public class GG_ParabolaPointController : MonoBehaviour
             StartPoint.position = Player.position;
             EndPoint.position = new Vector3(Player.position.x, 0, Player.position.z + (SpeedZ * EndPointZmultipler));
             MiddlePointZ = Player.position.z + ((EndPoint.position.z - Player.position.z) / 2);
-            MiddlePointY = Player.position.y - (((Player.position.y - EndPoint.position.y)*1)/3);
+            MiddlePointY = Player.position.y - (((Player.position.y - EndPoint.position.y)*15)/100);
             MiddlePoint.position = new Vector3(Player.position.x,MiddlePointY, MiddlePointZ);
         }
     }
