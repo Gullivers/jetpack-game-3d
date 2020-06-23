@@ -2,13 +2,22 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+/jetpack-game-3d/[Ll]ibrary/metadata/
+/jetpack-game-3d/**/StreamingAssets/build_info.txt
+/jetpack-game-3d/**/assetDatabase3
+/jetpack-game-3d/[Ll]ibrary/StateCache/
+/jetpack-game-3d/**/.DS_Store
+/jetpack-game-3d/[Ll]ibrary/ScriptAssemblies/
+/jetpack-game-3d/[Tt]emp/
+/jetpack-game-3d/**/CurrentLayout.dwlt
+#/jetpack-game-3d/[Oo]bj/
+#/jetpack-game-3d/[Bb]uild/
+#/jetpack-game-3d/[Bb]uilds/
+#/jetpack-game-3d/[Ll]ogs/
+#/jetpack-game-3d/[Mm]emoryCaptures/
+
+
+
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -58,3 +67,23 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+jetpack-game-3d/Library/CurrentLayout.dwlt
+jetpack-game-3d/Library/expandedItems
+jetpack-game-3d/Library/APIUpdater/project-dependencies.graph
+jetpack-game-3d/Library/SceneVisibilityState.asset
+jetpack-game-3d/Library/ScriptAssemblies
+jetpack-game-3d/Library/shadercompiler-UnityShaderCompiler0.log
+jetpack-game-3d/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+jetpack-game-3d/obj/Debug/Assembly-CSharp-Editor.csprojAssemblyReference.cache
+jetpack-game-3d/Temp/ProcessJobs/e9a6970f79cd12d8b075e7d72f1b07cb.bakert
+jetpack-game-3d/Temp/UnityLockfile
+jetpack-game-3d/Library/assetDatabase3
+jetpack-game-3d/Library/assetDatabase3
+jetpack-game-3d/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+jetpack-game-3d/Library/ScriptAssemblies/Assembly-CSharp.dll
+jetpack-game-3d/Library/metadata
+jetpack-game-3d/Assets/StreamingAssets/build_info.txt
+jetpack-game-3d/Library/EditorInstance.json
+jetpack-game-3d/Library/
+jetpack-game-3d/obj/
+jetpack-game-3d/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-6_12_0.so
