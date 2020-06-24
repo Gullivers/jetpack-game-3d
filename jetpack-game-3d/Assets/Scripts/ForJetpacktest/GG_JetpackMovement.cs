@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class GG_JetpackMovement : MonoBehaviour
 {
     [SerializeField] GameObject Trajectory;
@@ -14,6 +14,7 @@ public class GG_JetpackMovement : MonoBehaviour
     int DotCounter = 1;
     bool SetDotDummy = true;
     public float Fuel;
+    [SerializeField] Transform JetPack;
 
 
     private void Awake()
@@ -29,7 +30,11 @@ public class GG_JetpackMovement : MonoBehaviour
         {
 
             Trajectory.SetActive(true);
-            if (!SetDotDummy) { SetDotDummy = true; }
+            if (!SetDotDummy)
+            {
+                SetDotDummy = true;
+                JetPack.DOLocalRotate(new Vector3(20, 0, 0), .5f);
+            }
             Fuel -= .1f;
             transform.Translate(Vector3.up * UpSpeed * Time.deltaTime, Space.World);
             transform.Translate(Vector3.forward * ForwardSpeed * Time.deltaTime, Space.World);
@@ -40,7 +45,12 @@ public class GG_JetpackMovement : MonoBehaviour
         else if (FallingOn)
         {
 
-            if (SetDotDummy) { GetComponent<ParabolaController>().SetDots(); SetDotDummy = false; }
+            if (SetDotDummy)
+            {
+                GetComponent<ParabolaController>().SetDots();
+                SetDotDummy = false;
+                JetPack.DOLocalRotate(new Vector3(0,0,0),.5f);
+            }
             #region Following parabola Dots
             transform.position = Vector3.MoveTowards(transform.position, GetComponent<ParabolaController>().Dots[DotCounter], FallingSpeed);
             #endregion

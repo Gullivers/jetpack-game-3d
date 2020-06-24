@@ -13,8 +13,8 @@ public class GG_ParabolaPointController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+   
+    void LateUpdate()
     {
         if (!Player.GetComponent<GG_JetpackMovement>().FallingOn)
         {
