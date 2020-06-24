@@ -6,6 +6,8 @@ public class Snaptest : MonoBehaviour
 {
     [SerializeField] Transform lastDot;
     MeshRenderer mesh;
+    float yPos;
+    [SerializeField] float lastPointMinY,lastPointMaxY;
     private void Awake()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -16,8 +18,14 @@ public class Snaptest : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit))
         {
-            transform.position = new Vector3(lastDot.position.x, hit.point.y+.5f, lastDot.position.z);
+            yPos=hit.point.y+.5f;
+            yPos=Mathf.Clamp(yPos,lastPointMinY,lastPointMaxY);
+            transform.position = new Vector3(lastDot.position.x,yPos, lastDot.position.z);
             transform.up = (hit.normal);
+        }
+     
+        else{
+            transform.position = new Vector3(lastDot.position.x,0, lastDot.position.z);
         }
       
     }

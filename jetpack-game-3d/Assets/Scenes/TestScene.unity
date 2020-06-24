@@ -275,7 +275,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34345870}
-  m_LocalRotation: {x: -0.18500394, y: 0.047883384, z: -0.009026075, w: -0.98152906}
+  m_LocalRotation: {x: -0.18500397, y: 0.047883354, z: -0.00902607, w: -0.98152906}
   m_LocalPosition: {x: 1.29, y: 5.18, z: -13.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3090,7 +3090,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425281048}
-  m_LocalRotation: {x: -0.18500394, y: 0.047883384, z: -0.009026075, w: -0.98152906}
+  m_LocalRotation: {x: -0.18500397, y: 0.047883354, z: -0.00902607, w: -0.98152906}
   m_LocalPosition: {x: 1.29, y: 5.18, z: -13.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3421,6 +3421,7 @@ GameObject:
   - component: {fileID: 1530747636}
   - component: {fileID: 1530747638}
   - component: {fileID: 1530747637}
+  - component: {fileID: 1530747639}
   m_Layer: 0
   m_Name: StartPoint
   m_TagString: Untagged
@@ -3488,6 +3489,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1530747639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530747635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0ec205dcc06c54bb364ebb0910b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastDot: {fileID: 1530747636}
+  lastPointMinY: -25
+  lastPointMaxY: 25
 --- !u!1 &1573082931
 GameObject:
   m_ObjectHideFlags: 0
@@ -5058,6 +5074,7 @@ GameObject:
   - component: {fileID: 2065005985}
   - component: {fileID: 2065005987}
   - component: {fileID: 2065005986}
+  - component: {fileID: 2065005988}
   m_Layer: 0
   m_Name: Sphere (49)
   m_TagString: Untagged
@@ -5125,3 +5142,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065005984}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2065005988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065005984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0ec205dcc06c54bb364ebb0910b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastDot: {fileID: 1530747636}
+  lastPointMinY: -25
+  lastPointMaxY: 25
