@@ -13,7 +13,7 @@ public class GG_JetpackMovement : MonoBehaviour
     public bool FallingOn = false;
     int DotCounter = 1;
     bool SetDotDummy = true;
-
+    public float Fuel;
 
 
     private void Awake()
@@ -23,12 +23,14 @@ public class GG_JetpackMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (Fuel <= 0 && JetPackOn) { FuelIsEmpty(); }
         #region  JetPack is On
         if (JetPackOn)
         {
+
             Trajectory.SetActive(true);
             if (!SetDotDummy) { SetDotDummy = true; }
-
+            Fuel -= .1f;
             transform.Translate(Vector3.up * UpSpeed * Time.deltaTime, Space.World);
             transform.Translate(Vector3.forward * ForwardSpeed * Time.deltaTime, Space.World);
             ForwardSpeed += Forwardacceleration;
@@ -71,12 +73,28 @@ public class GG_JetpackMovement : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        JetPackOn = true;
-        FallingOn = false;
+        if (Fuel >= 0)
+        {
+            JetPackOn = true;
+            FallingOn = false;
+        }
     }
     private void OnMouseUp()
     {
-        JetPackOn = false;
-        FallingOn = true;
+        if (Fuel >= 0)
+        {
+            JetPackOn = false;
+            FallingOn = true;
+        }
+    }
+
+    void FuelIsEmpty()
+    {
+        if (JetPackOn)
+        {
+            JetPackOn = false;
+            FallingOn = true;
+        }
+
     }
 }
