@@ -15,35 +15,41 @@ public class Snaptest : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
     }
     void FixedUpdate()
-    {  RayPos=new Vector3(transform.position.x,50f,transform.position.z+.2f);
+    {
+        RayPos = new Vector3(transform.position.x, 50f, transform.position.z + .2f);
         transform.position = lastDot.position;
         RaycastHit hit;
         if (Physics.Raycast(new Ray(transform.position, Vector3.forward), out hit, RaycastDistance))
-        {
+        {  if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player"))
+            {
             Debug.Log("Hit forward");
             float distance = Vector3.Distance(transform.position, hit.point);
             yPos = hit.point.y;
             yPos = Mathf.Clamp(yPos, lastPointMinY, lastPointMaxY);
 
-            transform.position = new Vector3(lastDot.position.x, yPos+.01f, lastDot.position.z);
+            transform.position = new Vector3(lastDot.position.x, yPos + .01f, lastDot.position.z);
             transform.up = (hit.normal);
-
+            }
 
         }
-      
+
         else if (Physics.Raycast(new Ray(RayPos, Vector3.down), out hit, 50f))
         {
-            Debug.Log("Hit down");
-            float distance = Vector3.Distance(transform.position, hit.point);
-            yPos = hit.point.y + .5f;
-            yPos = Mathf.Clamp(yPos, lastPointMinY, lastPointMaxY);
+            if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player"))
+            {
+                Debug.Log("Hit down");
+                float distance = Vector3.Distance(transform.position, hit.point);
+                yPos = hit.point.y + .1f;
+                yPos = Mathf.Clamp(yPos, lastPointMinY, lastPointMaxY);
 
-            transform.position = new Vector3(lastDot.position.x, yPos, lastDot.position.z);
-            transform.up = (hit.normal);
-
+                transform.position = new Vector3(lastDot.position.x, yPos, lastDot.position.z);
+                transform.up = (hit.normal);
+            }
         }
         else if (Physics.Raycast(new Ray(transform.position, Vector3.up), out hit, RaycastDistance))
         {
+             if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player"))
+            {
             Debug.Log("Hit up");
             float distance = Vector3.Distance(transform.position, hit.point);
             yPos = hit.point.y + 1f;
@@ -51,7 +57,7 @@ public class Snaptest : MonoBehaviour
 
             transform.position = new Vector3(lastDot.position.x, yPos, lastDot.position.z);
             transform.up = (hit.normal);
-
+            }
 
         }
 

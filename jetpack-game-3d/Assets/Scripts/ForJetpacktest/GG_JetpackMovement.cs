@@ -8,13 +8,20 @@ public class GG_JetpackMovement : MonoBehaviour
     public float ForwardSpeed, UpSpeed;
     float DefForwardSpeed, DefFallingSpeed;
     [SerializeField] float FallingSpeed = .5f;
-    [SerializeField] float Forwardacceleration;
+    [SerializeField] float Forwardacceleration, JetpackAngle;
+  
+    [HideInInspector]
     public bool JetPackOn = false;
+    [HideInInspector]
     public bool FallingOn = false;
-    int DotCounter = 1;
+    [HideInInspector]
+    public int DotCounter = 1;
+    [HideInInspector]
     bool SetDotDummy = true;
+    [HideInInspector]
+    public bool CanTap = true;
     public float Fuel;
-    [SerializeField] Transform JetPack;
+
 
 
     private void Awake()
@@ -32,8 +39,9 @@ public class GG_JetpackMovement : MonoBehaviour
             Trajectory.SetActive(true);
             if (!SetDotDummy)
             {
+                CanTap = false;
                 SetDotDummy = true;
-                JetPack.DOLocalRotate(new Vector3(20, 0, 0), .5f);
+                transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             }
             Fuel -= .1f;
             transform.Translate(Vector3.up * UpSpeed * Time.deltaTime, Space.World);
@@ -49,8 +57,9 @@ public class GG_JetpackMovement : MonoBehaviour
             {
                 GetComponent<ParabolaController>().SetDots();
                 SetDotDummy = false;
-                JetPack.DOLocalRotate(new Vector3(0,0,0),.5f);
+                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
             }
+
             #region Following parabola Dots
             transform.position = Vector3.MoveTowards(transform.position, GetComponent<ParabolaController>().Dots[DotCounter], FallingSpeed);
             #endregion
@@ -83,8 +92,9 @@ public class GG_JetpackMovement : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (Fuel >= 0)
+        if (Fuel >= 0 && CanTap)
         {
+            transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             JetPackOn = true;
             FallingOn = false;
         }
@@ -93,6 +103,7 @@ public class GG_JetpackMovement : MonoBehaviour
     {
         if (Fuel >= 0)
         {
+            transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
             JetPackOn = false;
             FallingOn = true;
         }
