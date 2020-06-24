@@ -23,6 +23,13 @@ public class Snaptest : MonoBehaviour
             transform.position = new Vector3(lastDot.position.x,yPos, lastDot.position.z);
             transform.up = (hit.normal);
         }
+        else if (Physics.Raycast(new Ray(transform.position, Vector3.up), out hit))
+        {
+            yPos=hit.point.y+1f;
+            yPos=Mathf.Clamp(yPos,lastPointMinY,lastPointMaxY);
+            transform.position = new Vector3(lastDot.position.x,yPos, lastDot.position.z);
+            transform.up = (hit.normal);
+        }
      
         else{
             transform.position = new Vector3(lastDot.position.x,0, lastDot.position.z);
