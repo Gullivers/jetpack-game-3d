@@ -6,8 +6,11 @@ public class GG_PlayerTrigger : MonoBehaviour
 {
     public Vector3 LastCheckpoint;
     [SerializeField] GG_JetpackMovement Jetpack;
-    private void Awake() {
-        LastCheckpoint=transform.position;
+    GG_ParticleControl particleControl;
+    private void Awake()
+    {
+        LastCheckpoint = transform.position;
+        particleControl = GetComponent<GG_ParticleControl>();
     }
     private void OnTriggerEnter(Collider col)
     {
@@ -27,8 +30,10 @@ public class GG_PlayerTrigger : MonoBehaviour
 
     public void SetLastCheckpoint()
     {
-        Jetpack.FallingOn=false;
-        Jetpack.DotCounter=1;
+        particleControl.StopJetpackParticle();
+        Jetpack.FallingOn = false;
+        Jetpack.DotCounter = 1;
         transform.position = LastCheckpoint;
+      
     }
 }

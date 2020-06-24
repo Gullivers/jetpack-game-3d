@@ -4,12 +4,13 @@ using UnityEngine;
 using DG.Tweening;
 public class GG_JetpackMovement : MonoBehaviour
 {
+    GG_ParticleControl particleControl;
     [SerializeField] GameObject Trajectory;
     public float ForwardSpeed, UpSpeed;
     float DefForwardSpeed, DefFallingSpeed;
     [SerializeField] float FallingSpeed = .5f;
     [SerializeField] float Forwardacceleration, JetpackAngle;
-  
+
     [HideInInspector]
     public bool JetPackOn = false;
     [HideInInspector]
@@ -26,12 +27,13 @@ public class GG_JetpackMovement : MonoBehaviour
 
     private void Awake()
     {
+        particleControl = GetComponent<GG_ParticleControl>();
         DefForwardSpeed = ForwardSpeed;
         DefFallingSpeed = FallingSpeed;
     }
     void FixedUpdate()
     {
-        if (Fuel <= 0 && JetPackOn) { FuelIsEmpty(); }
+        if (Fuel <= 0 && JetPackOn) { FuelIsEmpty();   particleControl.StopJetpackParticle(); }
         #region  JetPack is On
         if (JetPackOn)
         {
@@ -93,7 +95,7 @@ public class GG_JetpackMovement : MonoBehaviour
     private void OnMouseDown()
     {
         if (Fuel >= 0 && CanTap)
-        {
+        {    particleControl.StartJetpackParticle();
             transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             JetPackOn = true;
             FallingOn = false;
@@ -101,6 +103,7 @@ public class GG_JetpackMovement : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        particleControl.StopJetpackParticle();
         if (Fuel >= 0)
         {
             transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
@@ -116,6 +119,10 @@ public class GG_JetpackMovement : MonoBehaviour
             JetPackOn = false;
             FallingOn = true;
         }
+
+    }
+    void ClosePartice()
+    {
 
     }
 }

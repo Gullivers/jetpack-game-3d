@@ -6,12 +6,13 @@ public class RoadCreator : MonoBehaviour
 {
     [SerializeField] GameObject Plane;
     [SerializeField] GameObject Water;
-    float xpos = 60;
+    [SerializeField] int HowManyPlatform;
+    float xpos = 30;
     void Awake()
     {   
         Transform tempWater=Instantiate(Water,this.transform).transform;
-        tempWater.localScale=new Vector3(tempWater.localScale.x, tempWater.localScale.y,50);
-        for (int i = 0; i < 25; i++)
+        tempWater.localScale=new Vector3(tempWater.localScale.x, tempWater.localScale.y,HowManyPlatform*20);
+        for (int i = 0; i < HowManyPlatform; i++)
         {
             Transform temp = Instantiate(Plane, new Vector3(0, Random.Range(-7f,2f), xpos), Quaternion.identity).transform;
             xpos += 50;
@@ -19,9 +20,5 @@ public class RoadCreator : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+ 
 }
