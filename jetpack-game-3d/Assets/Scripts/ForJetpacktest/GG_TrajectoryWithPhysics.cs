@@ -9,15 +9,16 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
     [SerializeField] GG_JetpackMovement JectPack;
     [SerializeField] GameObject Sphere;
     float x1, y1;
+    int UnusedDotsIndex;
     [SerializeField] float dotSeparation, dotShift, dotShiftdotSeparation;
     [SerializeField] Transform[] Dots;
     [SerializeField] Transform TrajectoryLastPointer;
-    [HideInInspector]
-    public int LastDotIndex = 50;
+
+    public int LastDotIndex = 50000;
 
     private void Awake()
     {
-        for (int i = 0; i < 51; i++)
+        for (int i = 0; i < Dots.Length; i++)
         {
 
 
@@ -34,18 +35,61 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
-    {
+    void FixedUpdate()
+    {UnusedDotsIndex=0;
         if (JectPack.JetPackOn)
         {
-            for (int k = 0; k < transform.childCount; k++)
+            RaycastHit hit;
+            for (int k = 0; k < transform.childCount; k++ )
             {   //Each point of the trajectory will be given its position
                 x1 = Player.position.z + (rb.velocity.z * Time.fixedDeltaTime * (dotSeparation * k + dotShift));    //X position for each point is found
                 y1 = Player.position.y + (rb.velocity.y * Time.fixedDeltaTime * (dotSeparation * k + dotShift) - (-Physics2D.gravity.y / 2f * Time.fixedDeltaTime * Time.fixedDeltaTime * (dotShiftdotSeparation * k + dotShift) * (dotSeparation * k + dotShift)));  //Y position for each point is found
+
+
+                 //if (y1 < 0) { break; }
+
                 Dots[k].position = new Vector3(0, y1, x1);  //Position is applied to each point
+                UnusedDotsIndex++;
+                if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.forward), out hit, 1f))
+                {
+                    if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
+                    {
+                        Debug.Log(k + "Forward   " + hit.transform.name);
+                        TrajectoryLastPointer.position =hit.point;
+                        TrajectoryLastPointer.rotation=Quaternion.EulerAngles(-90,0,0);
+                        break;
+                    }
+
+                }
+                else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.down), out hit, 1f))
+                {
+                    if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
+                    {
+                        TrajectoryLastPointer.position =hit.point;
+                        TrajectoryLastPointer.rotation=Quaternion.EulerAngles(0,0,0);
+                        Debug.Log(k + "Down   " + hit.transform.name);
+                        break;
+                    }
+
+                }
+                   else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, 1f))
+                {
+                    if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
+                    {
+                        TrajectoryLastPointer.position =hit.point;
+                        TrajectoryLastPointer.rotation=Quaternion.EulerAngles(0,0,0);
+                        Debug.Log(k + "Down   " + hit.transform.name);
+                        break;
+                    }
+
+                }
+            }
+            for (int i =UnusedDotsIndex ; i <Dots.Length ; i++)
+            {
+                Dots[i].position=Vector3.zero;
             }
             //transform.GetChild(LastDotIndex).GetComponent<MeshFilter>().mesh=PlaneMesh;
-            TrajectoryLastPointer.position = transform.GetChild(LastDotIndex).position;
+            //TrajectoryLastPointer.position = transform.GetChild(LastDotIndex).position;
             // for (int i =LastDot; i < 50; i++)
             // {
             //     Dots[i].gameObject.SetActive(false);
