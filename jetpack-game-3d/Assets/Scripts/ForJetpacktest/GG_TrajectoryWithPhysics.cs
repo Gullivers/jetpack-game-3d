@@ -23,6 +23,8 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
 
 
             Transform temp = Instantiate(Sphere, this.transform).transform;
+            if(i%20==0){temp.GetComponent<Renderer>().enabled=true;}
+            else{temp.GetComponent<Renderer>().enabled=false;}
             temp.name = i.ToString();
         }
     }
