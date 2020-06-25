@@ -58,7 +58,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                     {
                         Debug.Log(k + "Forward   " + hit.transform.name);
                         TrajectoryLastPointer.position =hit.point;
-                        TrajectoryLastPointer.rotation=Quaternion.EulerAngles(-90,0,0);
+                        TrajectoryLastPointer.transform.up=hit.normal;
                         break;
                     }
 
@@ -68,18 +68,18 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
                         TrajectoryLastPointer.position =hit.point;
-                        TrajectoryLastPointer.rotation=Quaternion.EulerAngles(0,0,0);
+                        TrajectoryLastPointer.transform.up=hit.normal;
                         Debug.Log(k + "Down   " + hit.transform.name);
                         break;
                     }
 
                 }
-                   else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, 1f))
+                 else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, 1f))
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
                         TrajectoryLastPointer.position =hit.point;
-                        TrajectoryLastPointer.rotation=Quaternion.EulerAngles(0,0,0);
+                       TrajectoryLastPointer.transform.up=hit.normal;
                         Debug.Log(k + "Down   " + hit.transform.name);
                         break;
                     }
