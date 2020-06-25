@@ -22,18 +22,22 @@ public class GG_JetpackMovement : MonoBehaviour
     [HideInInspector]
     public bool CanTap = true;
     public float Fuel;
-
+    [HideInInspector]
+    public float FuelForStart;
+    Rigidbody rb;
 
 
     private void Awake()
     {
+        FuelForStart = Fuel;
+        rb = GetComponent<Rigidbody>();
         particleControl = GetComponent<GG_ParticleControl>();
         DefForwardSpeed = ForwardSpeed;
         DefFallingSpeed = FallingSpeed;
     }
     void FixedUpdate()
     {
-        if (Fuel <= 0 && JetPackOn) { FuelIsEmpty();   particleControl.StopJetpackParticle(); }
+        if (Fuel <= 0 && JetPackOn) { FuelIsEmpty(); particleControl.StopJetpackParticle(); }
         #region  JetPack is On
         if (JetPackOn)
         {
@@ -41,46 +45,49 @@ public class GG_JetpackMovement : MonoBehaviour
             Trajectory.SetActive(true);
             if (!SetDotDummy)
             {
+
                 CanTap = false;
                 SetDotDummy = true;
                 transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             }
             Fuel -= .1f;
-            transform.Translate(Vector3.up * UpSpeed * Time.deltaTime, Space.World);
-            transform.Translate(Vector3.forward * ForwardSpeed * Time.deltaTime, Space.World);
-            ForwardSpeed += Forwardacceleration;
+            rb.AddForce(Vector3.up * UpSpeed);
+            rb.AddForce(Vector3.forward * ForwardSpeed);
+            //ForwardSpeed += Forwardacceleration;
         }
         #endregion
         #region  Jetpack is Off
         else if (FallingOn)
         {
-
+            Fuel += .05f;
+            Fuel = Mathf.Clamp(Fuel, 0f, FuelForStart);
             if (SetDotDummy)
             {
-                GetComponent<ParabolaController>().SetDots();
+                rb.useGravity = true;
+                //GetComponent<ParabolaController>().SetDots();
                 SetDotDummy = false;
                 transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
             }
 
-            #region Following parabola Dots
-            transform.position = Vector3.MoveTowards(transform.position, GetComponent<ParabolaController>().Dots[DotCounter], FallingSpeed);
-            #endregion
-            #region DotPoint Control
-            if (Vector3.Distance(transform.position, GetComponent<ParabolaController>().Dots[DotCounter]) < .01f)
-            {
-                if (DotCounter != GetComponent<ParabolaController>().Dots.Length - 1) { DotCounter++; }
+            // #region Following parabola Dots
+            // transform.position = Vector3.MoveTowards(transform.position, GetComponent<ParabolaController>().Dots[DotCounter], FallingSpeed);
+            // #endregion
+            // #region DotPoint Control
+            // if (Vector3.Distance(transform.position, GetComponent<ParabolaController>().Dots[DotCounter]) < .01f)
+            // {
+            //     if (DotCounter != GetComponent<ParabolaController>().Dots.Length - 1) { DotCounter++; }
 
-                else
-                {
-                    FallingOn = false;
-                    DotCounter = 1;
-                    Trajectory.SetActive(false);
-                    ResetSpeedValues();
-                }
+            //     else
+            //     {
+            //         FallingOn = false;
+            //         DotCounter = 1;
+            //         Trajectory.SetActive(false);
+            //         ResetSpeedValues();
+            //     }
 
-                FallingSpeed += .005f;
-            }
-            #endregion
+            //     FallingSpeed += .005f;
+            // }
+            //#endregion
 
 
         }
@@ -95,7 +102,10 @@ public class GG_JetpackMovement : MonoBehaviour
     private void OnMouseDown()
     {
         if (Fuel >= 0 && CanTap)
-        {    particleControl.StartJetpackParticle();
+
+        {
+            rb.useGravity = false;
+            particleControl.StartJetpackParticle();
             transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             JetPackOn = true;
             FallingOn = false;
@@ -104,6 +114,7 @@ public class GG_JetpackMovement : MonoBehaviour
     private void OnMouseUp()
     {
         particleControl.StopJetpackParticle();
+        rb.useGravity = true;
         if (Fuel >= 0)
         {
             transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
@@ -116,6 +127,7 @@ public class GG_JetpackMovement : MonoBehaviour
     {
         if (JetPackOn)
         {
+            rb.useGravity = true;
             JetPackOn = false;
             FallingOn = true;
         }

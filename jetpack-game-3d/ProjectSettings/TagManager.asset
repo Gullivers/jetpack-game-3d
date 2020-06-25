@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Platform
   - Water
+  - Trajectory
+  - PlatformFront
   layers:
   - Default
   - TransparentFX
