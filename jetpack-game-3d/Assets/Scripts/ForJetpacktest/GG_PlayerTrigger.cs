@@ -36,8 +36,9 @@ public class GG_PlayerTrigger : MonoBehaviour
         {
 
             ResetTrajectory();
+            particleControl.StopJetpackParticle();
             transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
-            Debug.Log("Platform girdi");
+
             LastCheckpoint = transform.position;
 
 
@@ -74,7 +75,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     void ResetTrajectory()
     {
         PointerTrajectory.position = new Vector3(0, 1, -20);
-        // Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex = 50;
+       
         for (int i = 0; i < Trajectory.childCount; i++)
         {
             Trajectory.GetChild(i).transform.position = new Vector3(0, 1, -20);

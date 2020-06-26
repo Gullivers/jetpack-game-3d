@@ -12,18 +12,18 @@ public class GG_JetpackMovement : MonoBehaviour
     //[SerializeField] float FallingSpeed = .5f;
     [SerializeField] float JetpackAngle;
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool JetPackOn = false;
-    //[HideInInspector]
+    [HideInInspector]
     public bool FallingOn = false;
     [HideInInspector]
     public int DotCounter = 1;
-    [HideInInspector]
-    [SerializeField] bool DummyJetPackOn = true;
-    [SerializeField] bool DummySoftlaunch = true;
-    [SerializeField] bool DummyFalling = true;
 
-    // [HideInInspector]
+    bool DummyJetPackOn = true;
+    bool DummySoftlaunch = true;
+    bool DummyFalling = true;
+
+    [HideInInspector]
     public bool CanTap = true;
     public float Fuel;
     [HideInInspector]
@@ -67,11 +67,18 @@ public class GG_JetpackMovement : MonoBehaviour
             {
                 DummyJetPackOn = true;
                 rb.useGravity = true;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
+                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f).SetId("FallingAngle");
                 DummyFalling = false;
 
             }
-         
+            // if (Vector3.Distance(transform.position, PointerTrajectory.position) < 30f&&DummySoftlaunch)
+            // {
+            //     DummySoftlaunch=false;
+            //     DOTween.Kill("FallingAngle");
+            //     transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f);
+            //     particleControl.StartJetpackParticle();
+            // }
+
         }
         #endregion
     }
@@ -96,10 +103,10 @@ public class GG_JetpackMovement : MonoBehaviour
     public void OnClickUp()
     {
 
-        particleControl.StopJetpackParticle();
+        if (CanTap) { particleControl.StopJetpackParticle(); }
         rb.useGravity = true;
         if (Fuel >= 0 && CanTap)
-        {   
+        {
 
             JetPackOn = false;
             FallingOn = true;
@@ -116,7 +123,6 @@ public class GG_JetpackMovement : MonoBehaviour
             JetPackOn = false;
             FallingOn = true;
         }
-
     }
 
 }
