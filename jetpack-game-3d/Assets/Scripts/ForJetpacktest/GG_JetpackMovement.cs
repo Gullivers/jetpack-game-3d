@@ -11,6 +11,7 @@ public class GG_JetpackMovement : MonoBehaviour
     float DefForwardSpeed;
     //[SerializeField] float FallingSpeed = .5f;
     [SerializeField] float JetpackAngle;
+    [SerializeField] float SoftlaunchMin,SoftlaunchMax;
 
     [HideInInspector]
     public bool JetPackOn = false;
@@ -25,6 +26,7 @@ public class GG_JetpackMovement : MonoBehaviour
 
     [HideInInspector]
     public bool CanTap = true;
+    [HideInInspector]
     public float Fuel;
     [HideInInspector]
     public float FuelForStart;
@@ -71,13 +73,17 @@ public class GG_JetpackMovement : MonoBehaviour
                 DummyFalling = false;
 
             }
-            // if (Vector3.Distance(transform.position, PointerTrajectory.position) < 30f&&DummySoftlaunch)
-            // {
-            //     DummySoftlaunch=false;
-            //     DOTween.Kill("FallingAngle");
-            //     transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f);
-            //     particleControl.StartJetpackParticle();
-            // }
+            //Softlaunch
+            if (Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin &&
+            Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax &&
+            DummySoftlaunch)
+            {
+                DummySoftlaunch = false;
+                //DOTween.Kill("FallingAngle");
+                particleControl.StartJetpackParticle();
+                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f);
+
+            }
 
         }
         #endregion
@@ -104,6 +110,7 @@ public class GG_JetpackMovement : MonoBehaviour
     {
 
         if (CanTap) { particleControl.StopJetpackParticle(); }
+        if (!DummySoftlaunch) { particleControl.StartJetpackParticle(); }
         rb.useGravity = true;
         if (Fuel >= 0 && CanTap)
         {

@@ -38,7 +38,7 @@ public class GG_PlayerTrigger : MonoBehaviour
             ResetTrajectory();
             particleControl.StopJetpackParticle();
             transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
-
+            transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             LastCheckpoint = transform.position;
 
 
@@ -54,6 +54,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         if (col.tag == "Finish")
         {
             ResetTrajectory();
+            particleControl.StopJetpackParticle();
             rb.velocity = Vector3.zero;
             Jetpack.CanTap = true;
             rb.useGravity = false;
@@ -63,6 +64,7 @@ public class GG_PlayerTrigger : MonoBehaviour
 
     public void SetLastCheckpoint()
     {
+        transform.rotation = Quaternion.EulerAngles(0, 0, 0);
         Jetpack.Fuel = Jetpack.FuelForStart;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
@@ -75,7 +77,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     void ResetTrajectory()
     {
         PointerTrajectory.position = new Vector3(0, 1, -20);
-       
+
         for (int i = 0; i < Trajectory.childCount; i++)
         {
             Trajectory.GetChild(i).transform.position = new Vector3(0, 1, -20);
@@ -85,6 +87,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     public void Retrylevel()
     {
         transform.position = new Vector3(0, 3, 0);
+        transform.rotation = Quaternion.EulerAngles(0, 0, 0);
         LastCheckpoint = transform.position;
     }
 }
