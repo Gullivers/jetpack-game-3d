@@ -11,15 +11,15 @@ public class GG_JetpackMovement : MonoBehaviour
     [SerializeField] float FallingSpeed = .5f;
     [SerializeField] float Forwardacceleration, JetpackAngle;
 
-    [HideInInspector]
+   // [HideInInspector]
     public bool JetPackOn = false;
-    [HideInInspector]
+    //[HideInInspector]
     public bool FallingOn = false;
     [HideInInspector]
     public int DotCounter = 1;
     [HideInInspector]
     bool SetDotDummy = true;
-    [HideInInspector]
+    //[HideInInspector]
     public bool CanTap = true;
     public float Fuel;
     [HideInInspector]
@@ -99,11 +99,12 @@ public class GG_JetpackMovement : MonoBehaviour
         ForwardSpeed = DefForwardSpeed;
         FallingSpeed = DefFallingSpeed;
     }
-    private void OnMouseDown()
+    public void OnClickDown()
     {
         if (Fuel >= 0 && CanTap)
 
         {
+            CanTap=false;
             rb.useGravity = false;
             particleControl.StartJetpackParticle();
             transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
@@ -111,7 +112,7 @@ public class GG_JetpackMovement : MonoBehaviour
             FallingOn = false;
         }
     }
-    private void OnMouseUp()
+    public void OnClickUp()
     {
         particleControl.StopJetpackParticle();
         rb.useGravity = true;

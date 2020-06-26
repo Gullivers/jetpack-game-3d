@@ -9,6 +9,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     GG_ParticleControl particleControl;
     Rigidbody rb;
     [SerializeField] Transform Trajectory;
+    [SerializeField] GG_VoidEvent FinishEvent;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -17,6 +18,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
+
         if (col.tag == "PlatformFront")
         {
             ResetTrajectory();
@@ -43,23 +45,39 @@ public class GG_PlayerTrigger : MonoBehaviour
             SetLastCheckpoint();
             Debug.Log("Girdii Water");
         }
+        if (col.tag == "Finish")
+        {
+            ResetTrajectory();
+            rb.velocity = Vector3.zero;
+            Jetpack.CanTap = true;
+            rb.useGravity = false;
+            FinishEvent.Raise();
+        }
     }
 
     public void SetLastCheckpoint()
-    {   Jetpack.Fuel=Jetpack.FuelForStart;
+    {
+        Jetpack.Fuel = Jetpack.FuelForStart;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         Jetpack.CanTap = true;
         transform.position = LastCheckpoint;
         particleControl.StopJetpackParticle();
         Jetpack.FallingOn = false;
-        //Jetpack.DotCounter = 1;
+
     }
     void ResetTrajectory()
-    {Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex=50;
+    {
+        Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex = 50;
         for (int i = 0; i < Trajectory.childCount; i++)
         {
-            Trajectory.GetChild(i).transform.position = new Vector3(0,1,0);
+            Trajectory.GetChild(i).transform.position = new Vector3(0, 1, 0);
         }
+    }
+
+    public void Retrylevel()
+    {
+        transform.position = new Vector3(0, 3, 0);
+        LastCheckpoint = transform.position;
     }
 }
