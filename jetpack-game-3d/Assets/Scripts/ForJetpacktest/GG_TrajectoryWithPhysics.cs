@@ -14,7 +14,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
     [SerializeField] Transform[] Dots;
     [SerializeField] Transform TrajectoryLastPointer;
 
-    public int LastDotIndex = 50000;
+   
 
     private void Awake()
     {
@@ -23,8 +23,8 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
 
 
             Transform temp = Instantiate(Sphere, this.transform).transform;
-            if(i%20==0){temp.GetComponent<Renderer>().enabled=true;}
-            else{temp.GetComponent<Renderer>().enabled=false;}
+            if (i % 20 == 0) { temp.GetComponent<Renderer>().enabled = true; }
+            else { temp.GetComponent<Renderer>().enabled = false; }
             temp.name = i.ToString();
         }
     }
@@ -38,17 +38,18 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {UnusedDotsIndex=0;
+    {
+        UnusedDotsIndex = 0;
         if (JectPack.JetPackOn)
         {
             RaycastHit hit;
-            for (int k = 0; k < transform.childCount; k++ )
+            for (int k = 0; k < transform.childCount; k++)
             {   //Each point of the trajectory will be given its position
                 x1 = Player.position.z + (rb.velocity.z * Time.fixedDeltaTime * (dotSeparation * k + dotShift));    //X position for each point is found
                 y1 = Player.position.y + (rb.velocity.y * Time.fixedDeltaTime * (dotSeparation * k + dotShift) - (-Physics2D.gravity.y / 2f * Time.fixedDeltaTime * Time.fixedDeltaTime * (dotShiftdotSeparation * k + dotShift) * (dotSeparation * k + dotShift)));  //Y position for each point is found
 
 
-                 //if (y1 < 0) { break; }
+                //if (y1 < 0) { break; }
 
                 Dots[k].position = new Vector3(0, y1, x1);  //Position is applied to each point
                 UnusedDotsIndex++;
@@ -57,8 +58,8 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
                         Debug.Log(k + "Forward   " + hit.transform.name);
-                        TrajectoryLastPointer.position =hit.point;
-                        TrajectoryLastPointer.transform.up=hit.normal;
+                        TrajectoryLastPointer.position = hit.point;
+                        TrajectoryLastPointer.transform.up = hit.normal;
                         break;
                     }
 
@@ -67,28 +68,28 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
-                        TrajectoryLastPointer.position =hit.point;
-                        TrajectoryLastPointer.transform.up=hit.normal;
+                        TrajectoryLastPointer.position = hit.point;
+                        TrajectoryLastPointer.transform.up = hit.normal;
                         Debug.Log(k + "Down   " + hit.transform.name);
                         break;
                     }
 
                 }
-                 else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, 1f))
+                else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, 1f))
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
-                        TrajectoryLastPointer.position =hit.point;
-                       TrajectoryLastPointer.transform.up=hit.normal;
+                        TrajectoryLastPointer.position = hit.point;
+                        TrajectoryLastPointer.transform.up = hit.normal;
                         Debug.Log(k + "Down   " + hit.transform.name);
                         break;
                     }
 
                 }
             }
-            for (int i =UnusedDotsIndex ; i <Dots.Length ; i++)
+            for (int i = UnusedDotsIndex; i < Dots.Length; i++)
             {
-                Dots[i].position=Vector3.zero;
+                Dots[i].position = Vector3.zero;
             }
             //transform.GetChild(LastDotIndex).GetComponent<MeshFilter>().mesh=PlaneMesh;
             //TrajectoryLastPointer.position = transform.GetChild(LastDotIndex).position;

@@ -12,7 +12,7 @@ public class GG_TrajectoryDotTrigger : MonoBehaviour
             
             
 
-            GetComponentInParent<GG_TrajectoryWithPhysics>().LastDotIndex = Int32.Parse(transform.name);
+            //GetComponentInParent<GG_TrajectoryWithPhysics>().LastDotIndex = Int32.Parse(transform.name);
 
         }
     }

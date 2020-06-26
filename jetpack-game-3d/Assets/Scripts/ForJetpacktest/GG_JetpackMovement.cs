@@ -7,19 +7,19 @@ public class GG_JetpackMovement : MonoBehaviour
     GG_ParticleControl particleControl;
     [SerializeField] GameObject Trajectory;
     public float ForwardSpeed, UpSpeed;
-    float DefForwardSpeed, DefFallingSpeed;
-    [SerializeField] float FallingSpeed = .5f;
-    [SerializeField] float Forwardacceleration, JetpackAngle;
+    float DefForwardSpeed;
+    //[SerializeField] float FallingSpeed = .5f;
+    [SerializeField] float JetpackAngle;
 
-   // [HideInInspector]
+    [HideInInspector]
     public bool JetPackOn = false;
-    //[HideInInspector]
+    [HideInInspector]
     public bool FallingOn = false;
     [HideInInspector]
     public int DotCounter = 1;
     [HideInInspector]
     bool SetDotDummy = true;
-    //[HideInInspector]
+    [HideInInspector]
     public bool CanTap = true;
     public float Fuel;
     [HideInInspector]
@@ -33,7 +33,7 @@ public class GG_JetpackMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         particleControl = GetComponent<GG_ParticleControl>();
         DefForwardSpeed = ForwardSpeed;
-        DefFallingSpeed = FallingSpeed;
+     
     }
     void FixedUpdate()
     {
@@ -53,7 +53,7 @@ public class GG_JetpackMovement : MonoBehaviour
             Fuel -= .1f;
             rb.AddForce(Vector3.up * UpSpeed);
             rb.AddForce(Vector3.forward * ForwardSpeed);
-            //ForwardSpeed += Forwardacceleration;
+            
         }
         #endregion
         #region  Jetpack is Off
@@ -64,7 +64,7 @@ public class GG_JetpackMovement : MonoBehaviour
             if (SetDotDummy)
             {
                 rb.useGravity = true;
-                //GetComponent<ParabolaController>().SetDots();
+
                 SetDotDummy = false;
                 transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
             }
@@ -97,14 +97,14 @@ public class GG_JetpackMovement : MonoBehaviour
     void ResetSpeedValues()
     {
         ForwardSpeed = DefForwardSpeed;
-        FallingSpeed = DefFallingSpeed;
+ 
     }
     public void OnClickDown()
     {
         if (Fuel >= 0 && CanTap)
 
         {
-            CanTap=false;
+            CanTap = false;
             rb.useGravity = false;
             particleControl.StartJetpackParticle();
             transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);

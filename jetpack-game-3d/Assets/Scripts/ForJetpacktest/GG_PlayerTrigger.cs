@@ -17,7 +17,12 @@ public class GG_PlayerTrigger : MonoBehaviour
         particleControl = GetComponent<GG_ParticleControl>();
     }
     private void OnTriggerEnter(Collider col)
-    {
+    {     
+        #region Rigidbody
+
+            rb.velocity = Vector3.zero;
+            rb.useGravity = false;
+            #endregion
 
         if (col.tag == "PlatformFront")
         {
@@ -26,16 +31,14 @@ public class GG_PlayerTrigger : MonoBehaviour
             Debug.Log("Girdii Front");
         }
         if (col.tag == "Platform")
-        {
+        {   
+        
             ResetTrajectory();
+            transform.position=new Vector3(transform.position.x,col.transform.position.y+9.45f,transform.position.z);
             Debug.Log("Platform girdi");
             LastCheckpoint = transform.position;
             Jetpack.CanTap = true;
-            #region Rigidbody
-
-            rb.velocity = Vector3.zero;
-            rb.useGravity = false;
-            #endregion
+        
 
 
         }
@@ -68,7 +71,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     }
     void ResetTrajectory()
     {
-        Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex = 50;
+       // Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex = 50;
         for (int i = 0; i < Trajectory.childCount; i++)
         {
             Trajectory.GetChild(i).transform.position = new Vector3(0, 1, 0);
