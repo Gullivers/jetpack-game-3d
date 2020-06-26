@@ -197,7 +197,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34345870}
-  m_LocalRotation: {x: -0.18500397, y: 0.047883354, z: -0.009026085, w: -0.98152906}
+  m_LocalRotation: {x: -0.185004, y: 0.047883388, z: -0.0090260925, w: -0.98152906}
   m_LocalPosition: {x: 1.29, y: 8.18, z: -13.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -10933,7 +10933,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425281048}
-  m_LocalRotation: {x: -0.18500397, y: 0.047883354, z: -0.009026085, w: -0.98152906}
+  m_LocalRotation: {x: -0.185004, y: 0.047883388, z: -0.0090260925, w: -0.98152906}
   m_LocalPosition: {x: 1.29, y: 8.18, z: -13.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -11148,14 +11148,12 @@ MonoBehaviour:
   Trajectory: {fileID: 492470640}
   ForwardSpeed: 5
   UpSpeed: 3
-  FallingSpeed: 0.7
-  Forwardacceleration: 0.1
   JetpackAngle: 20
   JetPackOn: 0
   FallingOn: 0
   DotCounter: 1
   CanTap: 1
-  Fuel: 100
+  Fuel: 25
   FuelForStart: 0
 --- !u!114 &1648391345
 MonoBehaviour:

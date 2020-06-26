@@ -9,6 +9,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     GG_ParticleControl particleControl;
     Rigidbody rb;
     [SerializeField] Transform Trajectory;
+    [SerializeField] Transform PointerTrajectory;
     [SerializeField] GG_VoidEvent FinishEvent;
     private void Awake()
     {
@@ -17,12 +18,13 @@ public class GG_PlayerTrigger : MonoBehaviour
         particleControl = GetComponent<GG_ParticleControl>();
     }
     private void OnTriggerEnter(Collider col)
-    {     
+    {
         #region Rigidbody
 
-            rb.velocity = Vector3.zero;
-            rb.useGravity = false;
-            #endregion
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
+        #endregion
+        Jetpack.CanTap = true;
 
         if (col.tag == "PlatformFront")
         {
@@ -31,14 +33,14 @@ public class GG_PlayerTrigger : MonoBehaviour
             Debug.Log("Girdii Front");
         }
         if (col.tag == "Platform")
-        {   
-        
+        {
+
             ResetTrajectory();
-            transform.position=new Vector3(transform.position.x,col.transform.position.y+9.45f,transform.position.z);
+            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
             Debug.Log("Platform girdi");
             LastCheckpoint = transform.position;
-            Jetpack.CanTap = true;
-        
+
+
 
 
         }
@@ -71,10 +73,11 @@ public class GG_PlayerTrigger : MonoBehaviour
     }
     void ResetTrajectory()
     {
-       // Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex = 50;
+        PointerTrajectory.position = new Vector3(0, 1, -20);
+        // Trajectory.GetComponent<GG_TrajectoryWithPhysics>().LastDotIndex = 50;
         for (int i = 0; i < Trajectory.childCount; i++)
         {
-            Trajectory.GetChild(i).transform.position = new Vector3(0, 1, 0);
+            Trajectory.GetChild(i).transform.position = new Vector3(0, 1, -20);
         }
     }
 
