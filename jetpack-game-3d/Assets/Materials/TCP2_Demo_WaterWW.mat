@@ -66,12 +66,12 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthDistance: 0.17
+    - _DepthDistance: 3
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoamSmooth: 0.097
-    - _FoamSpread: 0.22
-    - _FoamStrength: 0.795
+    - _FoamSmooth: 0.382
+    - _FoamSpread: 2.74
+    - _FoamStrength: 0.268
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -81,14 +81,14 @@ Material:
     - _Parallax: 0.02
     - _RampSmooth: 0.288
     - _RampThreshold: 0.5
-    - _RimMax: 1
-    - _RimMin: 0.723
+    - _RimMax: 0.421
+    - _RimMin: 0.345
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _UVWaveAmplitude: 0.5
-    - _UVWaveFrequency: 7.44
+    - _UVWaveFrequency: 10
     - _UVWaveSpeed: 1
     - _ZWrite: 1
     - __dummy__: 0
@@ -99,5 +99,5 @@ Material:
     - _FoamColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
     - _FoamSpeed: {r: 1, g: 1, b: -1, a: -1}
     - _HColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
-    - _RimColor: {r: 0.28239998, g: 0.6072385, b: 0.8, a: 0.7058824}
+    - _RimColor: {r: 0.28239998, g: 0.6072385, b: 0.8, a: 1}
     - _SColor: {r: 0.22794116, g: 0.22794116, b: 0.22794116, a: 1}

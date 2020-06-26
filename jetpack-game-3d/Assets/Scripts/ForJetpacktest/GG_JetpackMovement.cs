@@ -26,10 +26,12 @@ public class GG_JetpackMovement : MonoBehaviour
 
     [HideInInspector]
     public bool CanTap = true;
-    [HideInInspector]
+    
     public float Fuel;
+
     [HideInInspector]
     public float FuelForStart;
+    [SerializeField] float FuelRegeneration;
     Rigidbody rb;
 
 
@@ -63,7 +65,7 @@ public class GG_JetpackMovement : MonoBehaviour
         #region  Jetpack is Off
         else if (FallingOn)
         {
-            Fuel += .05f;
+            Fuel += FuelRegeneration;
             Fuel = Mathf.Clamp(Fuel, 0f, FuelForStart);
             if (DummyFalling)
             {
