@@ -63,7 +63,7 @@ public class GG_BotTrigger : MonoBehaviour
     {
         if (!JetpackMove.MadedPass) { JetpackMove.LoseTry++; }
 
-
+        JetpackMove.SetWaitTime();
 
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
 
@@ -72,6 +72,7 @@ public class GG_BotTrigger : MonoBehaviour
 
         transform.position = LastCheckpoint;
         particleControl.StopJetpackParticle();
+
         StartCoroutine(WaitAndGoOn());
 
 
@@ -79,6 +80,7 @@ public class GG_BotTrigger : MonoBehaviour
     }
     void PlatformPassed(Collider col)
     {
+        JetpackMove.SetWaitTime();
         if (JetpackMove.MadedPass) { JetpackMove.SetLevel(); }
         particleControl.StopJetpackParticle();
         transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);

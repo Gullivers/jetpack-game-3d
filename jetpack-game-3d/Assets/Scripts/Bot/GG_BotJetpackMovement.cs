@@ -85,8 +85,9 @@ public class GG_BotJetpackMovement : MonoBehaviour
 
     public IEnumerator WaitForRandom()
     {
-        WaitTime = Random.Range(MinDuration, maxDuration);
-    
+
+
+
         yield return new WaitForSeconds(WaitTime);
         botTrajectory.CanMove = false;
     }
@@ -98,24 +99,49 @@ public class GG_BotJetpackMovement : MonoBehaviour
         switch (level)
         {
             case BotLevel.Easy:
-                MinDuration = .6f; maxDuration = 1f;
+                MinDuration = .2f; maxDuration = 1f;
+                WaitTime = Random.Range(0, 2) == 0 ? Random.Range(0, MinDuration) : Random.Range(.6f, maxDuration);
 
                 break;
             case BotLevel.Middle:
 
                 MinDuration = .3f; maxDuration = 1.3f;
+                WaitTime = Random.Range(0, 2) == 0 ? Random.Range(0, MinDuration) : Random.Range(.4f, maxDuration);
 
                 break;
             case BotLevel.Hard:
                 MinDuration = .2f; maxDuration = .5f;
+                WaitTime = Random.Range(MinDuration, maxDuration);
                 break;
 
 
         }
     }
+    public void SetWaitTime()
+    {
+        switch (level)
+        {
+            case BotLevel.Easy:
+                MinDuration = .2f; maxDuration = 1f;
+                WaitTime = Random.Range(0, 2) == 0 ? Random.Range(0, MinDuration) : Random.Range(.6f, maxDuration);
+
+                break;
+            case BotLevel.Middle:
+
+                MinDuration = .3f; maxDuration = 1.3f;
+                WaitTime = Random.Range(0, 2) == 0 ? Random.Range(0, MinDuration) : Random.Range(.4f, maxDuration);
+
+                break;
+            case BotLevel.Hard:
+                MinDuration = .2f; maxDuration = .5f;
+                WaitTime = Random.Range(MinDuration, maxDuration);
+                break;
+
+        }
+
+    }
     void MakeItPassLevel() { MinDuration = .2f; maxDuration = .5f; MadedPass = true; }
 }
-
 public enum BotLevel
 {
     Easy, Middle, Hard
