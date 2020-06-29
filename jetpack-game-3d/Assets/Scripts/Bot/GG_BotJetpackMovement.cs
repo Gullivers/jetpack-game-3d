@@ -8,12 +8,12 @@ public class GG_BotJetpackMovement : MonoBehaviour
     [SerializeField] GG_BotTrajectory botTrajectory;
     [Header("Speed Settings")]
     public float ForwardSpeed;
-    public float  UpSpeed;
+    public float UpSpeed;
     [SerializeField] float JetpackAngle;
     [SerializeField] float SoftlaunchMin;
     float MinDuration, maxDuration;
 
-
+    [SerializeField] float WaitTime;
 
 
     bool DummyJetPackOn = true;
@@ -85,7 +85,9 @@ public class GG_BotJetpackMovement : MonoBehaviour
 
     public IEnumerator WaitForRandom()
     {
-        yield return new WaitForSeconds(Random.Range(MinDuration, maxDuration));
+        WaitTime = Random.Range(MinDuration, maxDuration);
+    
+        yield return new WaitForSeconds(WaitTime);
         botTrajectory.CanMove = false;
     }
 
@@ -96,10 +98,13 @@ public class GG_BotJetpackMovement : MonoBehaviour
         switch (level)
         {
             case BotLevel.Easy:
-                MinDuration = .5f; maxDuration = 1.5f;
+                MinDuration = .6f; maxDuration = 1f;
+
                 break;
             case BotLevel.Middle:
-                MinDuration = .4f; maxDuration = 1.3f;
+
+                MinDuration = .3f; maxDuration = 1.3f;
+
                 break;
             case BotLevel.Hard:
                 MinDuration = .2f; maxDuration = .5f;

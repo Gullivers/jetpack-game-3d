@@ -13,10 +13,11 @@ public class GG_BotTrigger : MonoBehaviour
     Rigidbody rb;
     public Transform LastTransform;
     [SerializeField] GG_VoidEvent LoseEvent;
-
+    float xPos;
 
     private void Awake()
     {
+        xPos = transform.position.x;
         rb = GetComponent<Rigidbody>();
         LastCheckpoint = transform.position;
         particleControl = GetComponent<GG_ParticleControl>();
@@ -52,7 +53,7 @@ public class GG_BotTrigger : MonoBehaviour
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
 
             rb.useGravity = false;
-          
+
             LoseEvent.Raise();
 
         }
@@ -61,7 +62,7 @@ public class GG_BotTrigger : MonoBehaviour
     public void SetLastCheckpoint()
     {
         if (!JetpackMove.MadedPass) { JetpackMove.LoseTry++; }
-        
+
 
 
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
@@ -78,7 +79,7 @@ public class GG_BotTrigger : MonoBehaviour
     }
     void PlatformPassed(Collider col)
     {
-        if (JetpackMove.MadedPass) {JetpackMove.SetLevel();}
+        if (JetpackMove.MadedPass) { JetpackMove.SetLevel(); }
         particleControl.StopJetpackParticle();
         transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
@@ -95,11 +96,19 @@ public class GG_BotTrigger : MonoBehaviour
     public void Retrylevel()
     {
         JetpackMove.SetLevel();
+        particleControl.StopJetpackParticle();
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
 
-        transform.position = new Vector3(3, 3, 0);
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+        BotTrajectory.CanMove = false;
+
+
+        transform.position = new Vector3(xPos, 3, 0);
+
         LastCheckpoint = transform.position;
         LastTransform = this.transform;
+
         StartCoroutine(WaitAndGoOn());
     }
 }
