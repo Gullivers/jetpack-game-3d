@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2475812733944815439}
   - component: {fileID: 240712564334651303}
   - component: {fileID: 3949721920570837915}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TCP2_Demo_Water (1)
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4579172674416895943}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WaterPrefab
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 553326172356926297}
   - component: {fileID: 6093729095530129312}
   - component: {fileID: 7690641151034443775}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TCP2_Demo_Water
   m_TagString: Water
   m_Icon: {fileID: 0}
