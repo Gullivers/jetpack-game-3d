@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GG_BotTrigger : MonoBehaviour
 {
@@ -97,10 +98,12 @@ public class GG_BotTrigger : MonoBehaviour
 
     public void Retrylevel()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
         JetpackMove.SetLevel();
         particleControl.StopJetpackParticle();
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
+
+        DOTween.Kill("FallingAngle");
 
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
         BotTrajectory.CanMove = false;

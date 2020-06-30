@@ -11,6 +11,8 @@ public class GG_JetpackMovement : MonoBehaviour
     float DefForwardSpeed;
     //[SerializeField] float FallingSpeed = .5f;
     [SerializeField] float JetpackAngle;
+    public float Xdegree;
+    [SerializeField] float DegreeIncreser;
     [SerializeField] float SoftlaunchMin, SoftlaunchMax;
     [SerializeField] float SoftLaunchDuration;
     [SerializeField] Ease LaunchEase;
@@ -30,11 +32,13 @@ public class GG_JetpackMovement : MonoBehaviour
     public bool CanTap = true;
 
     public float Fuel;
+    public bool CanFillFuel = false;
 
     [HideInInspector]
     public float FuelForStart;
     [SerializeField] float FuelRegeneration;
     Rigidbody rb;
+
 
 
 
@@ -53,13 +57,17 @@ public class GG_JetpackMovement : MonoBehaviour
         #region  JetPack is On
         if (JetPackOn)
         {
+            Xdegree += DegreeIncreser;
+            Xdegree = Mathf.Clamp(Xdegree, -20, 20);
             if (DummyJetPackOn)
             {
+                CanFillFuel = false;
                 particleControl.StartJetpackParticle();
                 DummyFalling = DummySoftlaunch = true;
                 DummyJetPackOn = false;
-                transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
+                //transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             }
+            transform.rotation = Quaternion.Euler(Xdegree, 0, 0);
             Fuel -= .1f;
             rb.AddForce(Vector3.up * UpSpeed);
             rb.AddForce(Vector3.forward * ForwardSpeed);
@@ -69,13 +77,17 @@ public class GG_JetpackMovement : MonoBehaviour
         #region  Jetpack is Off
         else if (FallingOn)
         {
+
+            Xdegree -= DegreeIncreser;
+            Xdegree = Mathf.Clamp(Xdegree, -15, 15);
+            transform.rotation = Quaternion.Euler(Xdegree, 0, 0);
             Fuel += FuelRegeneration;
             Fuel = Mathf.Clamp(Fuel, 0f, FuelForStart);
             if (DummyFalling)
             {
                 DummyJetPackOn = true;
                 rb.useGravity = true;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
+                //transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
                 DummyFalling = false;
 
             }
@@ -92,10 +104,10 @@ public class GG_JetpackMovement : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 transform.DOMove(PointerTrajectory.position, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
                 particleControl.StartJetpackParticle();
-                transform.DOLocalRotate(new Vector3(-10, 0, 0), 1f).SetId("SoftlaunchAngle");
+                //transform.DOLocalRotate(new Vector3(-10, 0, 0), 1f).SetId("SoftlaunchAngle");
 
             }
-
+            if (CanFillFuel) { Fuel += FuelRegeneration; }
         }
         #endregion
     }
@@ -142,5 +154,5 @@ public class GG_JetpackMovement : MonoBehaviour
             FallingOn = true;
         }
     }
-  
+
 }

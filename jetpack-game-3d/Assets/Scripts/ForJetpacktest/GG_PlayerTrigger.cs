@@ -38,12 +38,16 @@ public class GG_PlayerTrigger : MonoBehaviour
 
             ResetTrajectory();
             particleControl.StopJetpackParticle();
+            Jetpack.Fuel = Jetpack.FuelForStart;
             //DOTween.Kill("SoftlaunchZ");
+            Jetpack.FallingOn = false;
+            Jetpack.CanFillFuel = true;
             DOTween.Kill("Softlaunch");
             DOTween.Kill("SoftlaunchAngle");
             //DOTween.Kill("Softlaunch");
             transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+            Jetpack.Xdegree = 0;
             LastCheckpoint = transform.position;
 
 
@@ -71,6 +75,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     {
         //DOTween.Kill("Softlaunch");
         //DOTween.Kill("SoftlaunchZ");
+        Jetpack.Xdegree = 0;
         DOTween.Kill("Softlaunch");
         DOTween.Kill("SoftlaunchAngle");
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
@@ -95,6 +100,11 @@ public class GG_PlayerTrigger : MonoBehaviour
 
     public void Retrylevel()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
+        Jetpack.FallingOn = false;
+        Jetpack.JetPackOn = false;
+        Jetpack.CanTap = true;
         transform.position = new Vector3(0, 3, 0);
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
         LastCheckpoint = transform.position;

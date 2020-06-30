@@ -7,8 +7,8 @@ public class GG_BotJetpackMovement : MonoBehaviour
     GG_ParticleControl particleControl;
     [SerializeField] GG_BotTrajectory botTrajectory;
     [Header("Speed Settings")]
-    public float ForwardSpeed;
-    public float UpSpeed;
+    [SerializeField] float ForwardSpeed;
+    [SerializeField] float UpSpeed;
     [SerializeField] float JetpackAngle;
     [SerializeField] float SoftlaunchMin;
     float MinDuration, maxDuration;
@@ -75,7 +75,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
             {
                 DummySoftlaunch = false;
                 particleControl.StartJetpackParticle();
-                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f);
+                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f).SetId("FallingAngle");
 
             }
 
