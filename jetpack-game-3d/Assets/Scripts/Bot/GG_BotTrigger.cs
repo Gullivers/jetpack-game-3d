@@ -15,7 +15,7 @@ public class GG_BotTrigger : MonoBehaviour
     [SerializeField] GG_VoidEvent LoseEvent;
     float xPos;
 
-    private void Awake()
+    private void Start()
     {
         xPos = transform.position.x;
         rb = GetComponent<Rigidbody>();

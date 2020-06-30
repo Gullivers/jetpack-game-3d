@@ -82,7 +82,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
                         TrajectoryLastPointer.position = hit.point;
-                        TrajectoryLastPointer.transform.up = hit.normal;
+                        TrajectoryLastPointer.transform.up = -hit.normal;
                 
                         break;
                     }

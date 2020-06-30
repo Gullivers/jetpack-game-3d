@@ -11,7 +11,9 @@ public class GG_JetpackMovement : MonoBehaviour
     float DefForwardSpeed;
     //[SerializeField] float FallingSpeed = .5f;
     [SerializeField] float JetpackAngle;
-    [SerializeField] float SoftlaunchMin,SoftlaunchMax;
+    [SerializeField] float SoftlaunchMin, SoftlaunchMax;
+    [SerializeField] float SoftLaunchDuration;
+    [SerializeField] Ease LaunchEase;
 
     [HideInInspector]
     public bool JetPackOn = false;
@@ -26,15 +28,15 @@ public class GG_JetpackMovement : MonoBehaviour
 
     [HideInInspector]
     public bool CanTap = true;
-    
+
     public float Fuel;
 
     [HideInInspector]
     public float FuelForStart;
     [SerializeField] float FuelRegeneration;
     Rigidbody rb;
-    
-    
+
+
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class GG_JetpackMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+
         if (Fuel <= 0 && JetPackOn) { FuelIsEmpty(); particleControl.StopJetpackParticle(); }
         #region  JetPack is On
         if (JetPackOn)
@@ -72,19 +75,24 @@ public class GG_JetpackMovement : MonoBehaviour
             {
                 DummyJetPackOn = true;
                 rb.useGravity = true;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f).SetId("FallingAngle");
+                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
                 DummyFalling = false;
 
             }
             //Softlaunch
-            if (Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin &&
-            Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax &&
-            DummySoftlaunch)
+            if (Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax && Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin
+             && DummySoftlaunch)
             {
+
+                Debug.Log("Softlaunch");
+                Debug.Log(PointerTrajectory.position + "  PointerPos");
                 DummySoftlaunch = false;
-                //DOTween.Kill("FallingAngle");
+                rb.useGravity = false;
+
+                rb.velocity = Vector3.zero;
+                transform.DOMove(PointerTrajectory.position, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
                 particleControl.StartJetpackParticle();
-                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f);
+                transform.DOLocalRotate(new Vector3(-10, 0, 0), 1f).SetId("SoftlaunchAngle");
 
             }
 
@@ -134,5 +142,5 @@ public class GG_JetpackMovement : MonoBehaviour
             FallingOn = true;
         }
     }
-
+  
 }

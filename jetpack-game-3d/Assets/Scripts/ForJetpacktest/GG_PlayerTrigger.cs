@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GG_PlayerTrigger : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class GG_PlayerTrigger : MonoBehaviour
 
             ResetTrajectory();
             particleControl.StopJetpackParticle();
+            //DOTween.Kill("SoftlaunchZ");
+            DOTween.Kill("Softlaunch");
+            DOTween.Kill("SoftlaunchAngle");
+            //DOTween.Kill("Softlaunch");
             transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             LastCheckpoint = transform.position;
@@ -64,6 +69,10 @@ public class GG_PlayerTrigger : MonoBehaviour
 
     public void SetLastCheckpoint()
     {
+        //DOTween.Kill("Softlaunch");
+        //DOTween.Kill("SoftlaunchZ");
+        DOTween.Kill("Softlaunch");
+        DOTween.Kill("SoftlaunchAngle");
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
         Jetpack.Fuel = Jetpack.FuelForStart;
         rb.useGravity = false;
