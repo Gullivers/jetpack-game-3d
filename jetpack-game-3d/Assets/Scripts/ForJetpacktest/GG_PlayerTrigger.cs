@@ -12,8 +12,10 @@ public class GG_PlayerTrigger : MonoBehaviour
     [SerializeField] Transform Trajectory;
     [SerializeField] Transform PointerTrajectory;
     [SerializeField] GG_VoidEvent FinishEvent;
+    Animator aAnimator;
     private void Awake()
     {
+        aAnimator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         LastCheckpoint = transform.position;
         particleControl = GetComponent<GG_ParticleControl>();
@@ -75,6 +77,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     {
         //DOTween.Kill("Softlaunch");
         //DOTween.Kill("SoftlaunchZ");
+        aAnimator.SetTrigger("JPoff");
         Jetpack.Xdegree = 0;
         DOTween.Kill("Softlaunch");
         DOTween.Kill("SoftlaunchAngle");

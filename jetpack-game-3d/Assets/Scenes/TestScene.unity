@@ -197,7 +197,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34345870}
-  m_LocalRotation: {x: -0.185004, y: 0.047883388, z: -0.0090260925, w: -0.98152906}
+  m_LocalRotation: {x: -0.18500397, y: 0.047883354, z: -0.009026085, w: -0.98152906}
   m_LocalPosition: {x: -45.016373, y: 38.408596, z: -193.99997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -10626,7 +10626,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425281048}
-  m_LocalRotation: {x: -0.185004, y: 0.047883388, z: -0.0090260925, w: -0.98152906}
+  m_LocalRotation: {x: -0.18500397, y: 0.047883354, z: -0.009026085, w: -0.98152906}
   m_LocalPosition: {x: -45.016373, y: 38.408596, z: -193.99997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10651,6 +10651,7 @@ GameObject:
   - component: {fileID: 1648391346}
   - component: {fileID: 1648391348}
   - component: {fileID: 1648391345}
+  - component: {fileID: 1648391349}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -10750,16 +10751,16 @@ MonoBehaviour:
   UpSpeed: 3
   JetpackAngle: 20
   Xdegree: 0
-  DegreeIncreser: 0.1
-  SoftlaunchMin: 6
-  SoftlaunchMax: 7
+  DegreeIncreser: 0.3
+  SoftlaunchMin: 7
+  SoftlaunchMax: 9
   SoftLaunchDuration: 1.5
   LaunchEase: 21
   JetPackOn: 0
   FallingOn: 0
   DotCounter: 1
   CanTap: 1
-  Fuel: 15
+  Fuel: 50
   CanFillFuel: 0
   FuelForStart: 0
   FuelRegeneration: 0.05
@@ -10839,6 +10840,25 @@ MonoBehaviour:
   Smoke2: {fileID: 904171556}
   Fire1: {fileID: 5045116603972499475}
   Fire2: {fileID: 5613847372796705714}
+--- !u!95 &1648391349
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648391339}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b14fe100c0f6d30499dccceb7b045442, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1686953479
 GameObject:
   m_ObjectHideFlags: 0

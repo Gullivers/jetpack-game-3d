@@ -39,11 +39,12 @@ public class GG_JetpackMovement : MonoBehaviour
     [SerializeField] float FuelRegeneration;
     Rigidbody rb;
 
-
+    Animator aAnimator;
 
 
     private void Awake()
     {
+        aAnimator = GetComponent<Animator>();
         FuelForStart = Fuel;
         rb = GetComponent<Rigidbody>();
         particleControl = GetComponent<GG_ParticleControl>();
@@ -57,10 +58,15 @@ public class GG_JetpackMovement : MonoBehaviour
         #region  JetPack is On
         if (JetPackOn)
         {
+            aAnimator.SetFloat("ShakingSpeed", aAnimator.GetFloat("ShakingSpeed") - .03f);
+            if (aAnimator.GetFloat("ShakingSpeed") <= 0) { aAnimator.SetTrigger("JPoff"); }
+
             Xdegree += DegreeIncreser;
             Xdegree = Mathf.Clamp(Xdegree, -20, 20);
             if (DummyJetPackOn)
             {
+                aAnimator.SetFloat("ShakingSpeed", 4f);
+                aAnimator.SetTrigger("JPon");
                 CanFillFuel = false;
                 particleControl.StartJetpackParticle();
                 DummyFalling = DummySoftlaunch = true;
@@ -85,17 +91,22 @@ public class GG_JetpackMovement : MonoBehaviour
             Fuel = Mathf.Clamp(Fuel, 0f, FuelForStart);
             if (DummyFalling)
             {
+
+
                 DummyJetPackOn = true;
                 rb.useGravity = true;
                 //transform.DOLocalRotate(new Vector3(0, 0, 0), .5f);
                 DummyFalling = false;
 
             }
+
             //Softlaunch
             if (Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax && Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin
              && DummySoftlaunch)
             {
-
+                aAnimator.ResetTrigger("JPoff");
+                aAnimator.SetFloat("ShakingSpeed", 5f);
+                aAnimator.SetTrigger("JPon");
                 Debug.Log("Softlaunch");
                 Debug.Log(PointerTrajectory.position + "  PointerPos");
                 DummySoftlaunch = false;
@@ -107,6 +118,8 @@ public class GG_JetpackMovement : MonoBehaviour
                 //transform.DOLocalRotate(new Vector3(-10, 0, 0), 1f).SetId("SoftlaunchAngle");
 
             }
+            aAnimator.SetFloat("ShakingSpeed", aAnimator.GetFloat("ShakingSpeed") - .05f);
+            if (aAnimator.GetFloat("ShakingSpeed") <= 0) { aAnimator.SetTrigger("JPoff"); }
             if (CanFillFuel) { Fuel += FuelRegeneration; }
         }
         #endregion
