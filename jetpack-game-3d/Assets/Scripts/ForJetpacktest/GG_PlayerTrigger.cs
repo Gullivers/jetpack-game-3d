@@ -114,6 +114,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
         Jetpack.FallingOn = false;
+        Jetpack.Fuel=Jetpack.FuelForStart;
         Jetpack.JetPackOn = false;
         Jetpack.CanTap = true;
         transform.position = new Vector3(0, 3, 0);
