@@ -98,15 +98,14 @@ public class GG_BotTrigger : MonoBehaviour
 
     public void Retrylevel()
     {
-        rb.velocity = Vector3.zero;
         rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        BotTrajectory.CanMove = false;
+        DOTween.Kill("FallingAngle");
+        transform.rotation = Quaternion.EulerAngles(0, 0, 0);
         JetpackMove.SetLevel();
         particleControl.StopJetpackParticle();
 
-        DOTween.Kill("FallingAngle");
-
-        transform.rotation = Quaternion.EulerAngles(0, 0, 0);
-        BotTrajectory.CanMove = false;
 
 
         transform.position = new Vector3(xPos, 3, 0);

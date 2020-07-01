@@ -63,6 +63,7 @@ public class GG_JetpackMovement : MonoBehaviour
 
             Xdegree += DegreeIncreser;
             Xdegree = Mathf.Clamp(Xdegree, -JetpackAngle, JetpackAngle);
+            transform.rotation = Quaternion.Euler(Xdegree, transform.rotation.y, transform.rotation.z);
             if (DummyJetPackOn)
             {
                 aAnimator.SetFloat("ShakingSpeed", 4f);
@@ -73,7 +74,7 @@ public class GG_JetpackMovement : MonoBehaviour
                 DummyJetPackOn = false;
                 //transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
             }
-            transform.rotation = Quaternion.Euler(Xdegree, 0, 0);
+
             Fuel -= .1f;
             rb.AddForce(Vector3.up * UpSpeed);
             rb.AddForce(Vector3.forward * ForwardSpeed);
@@ -100,13 +101,13 @@ public class GG_JetpackMovement : MonoBehaviour
 
             }
 
-         
+
             if (Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax && Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin
              && DummySoftlaunch)
             {
                 aAnimator.ResetTrigger("JPoff");
                 aAnimator.SetFloat("ShakingSpeed", 5f);
-                aAnimator.SetTrigger("Soft_Landing");
+
                 Debug.Log("Softlaunch");
                 Debug.Log(PointerTrajectory.position + "  PointerPos");
                 DummySoftlaunch = false;
@@ -115,6 +116,7 @@ public class GG_JetpackMovement : MonoBehaviour
 
                 if (transform.position.y - PointerTrajectory.position.y > 6f)
                 {
+                    aAnimator.SetTrigger("Soft_Landing");
                     rb.useGravity = false;
                     rb.velocity = Vector3.zero;
                     transform.DOMove(PointerTrajectory.position, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
