@@ -62,7 +62,7 @@ public class GG_JetpackMovement : MonoBehaviour
             if (aAnimator.GetFloat("ShakingSpeed") <= 0) { aAnimator.SetTrigger("JPoff"); }
 
             Xdegree += DegreeIncreser;
-            Xdegree = Mathf.Clamp(Xdegree, -20, 20);
+            Xdegree = Mathf.Clamp(Xdegree, -JetpackAngle, JetpackAngle);
             if (DummyJetPackOn)
             {
                 aAnimator.SetFloat("ShakingSpeed", 4f);
@@ -85,7 +85,7 @@ public class GG_JetpackMovement : MonoBehaviour
         {
 
             Xdegree -= DegreeIncreser;
-            Xdegree = Mathf.Clamp(Xdegree, -15, 15);
+            Xdegree = Mathf.Clamp(Xdegree, -JetpackAngle, JetpackAngle);
             transform.rotation = Quaternion.Euler(Xdegree, 0, 0);
             Fuel += FuelRegeneration;
             Fuel = Mathf.Clamp(Fuel, 0f, FuelForStart);
@@ -100,20 +100,25 @@ public class GG_JetpackMovement : MonoBehaviour
 
             }
 
-            //Softlaunch
+         
             if (Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax && Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin
              && DummySoftlaunch)
             {
                 aAnimator.ResetTrigger("JPoff");
                 aAnimator.SetFloat("ShakingSpeed", 5f);
-                aAnimator.SetTrigger("JPon");
+                aAnimator.SetTrigger("Soft_Landing");
                 Debug.Log("Softlaunch");
                 Debug.Log(PointerTrajectory.position + "  PointerPos");
                 DummySoftlaunch = false;
-                rb.useGravity = false;
 
-                rb.velocity = Vector3.zero;
-                transform.DOMove(PointerTrajectory.position, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+
+
+                if (transform.position.y - PointerTrajectory.position.y > 6f)
+                {
+                    rb.useGravity = false;
+                    rb.velocity = Vector3.zero;
+                    transform.DOMove(PointerTrajectory.position, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+                }
                 particleControl.StartJetpackParticle();
                 //transform.DOLocalRotate(new Vector3(-10, 0, 0), 1f).SetId("SoftlaunchAngle");
 

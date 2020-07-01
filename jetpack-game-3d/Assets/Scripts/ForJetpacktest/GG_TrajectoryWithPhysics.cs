@@ -50,7 +50,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                 y1 = Player.position.y + (rb.velocity.y * Time.fixedDeltaTime * (dotSeparation * k + dotShift) - (-Physics2D.gravity.y / 2f * Time.fixedDeltaTime * Time.fixedDeltaTime * (dotShiftdotSeparation * k + dotShift) * (dotSeparation * k + dotShift)));  //Y position for each point is found
 
 
-                //if (y1 < 0) { break; }
+                if (y1 < 0) { break; }
 
                 Dots[k].position = new Vector3(0, y1, x1);  //Position is applied to each point
                 UnusedDotsIndex++;

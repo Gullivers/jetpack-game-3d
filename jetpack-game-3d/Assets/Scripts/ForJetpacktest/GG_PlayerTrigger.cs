@@ -39,6 +39,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         {
 
             ResetTrajectory();
+              aAnimator.SetTrigger("JPoff");
             particleControl.StopJetpackParticle();
             Jetpack.Fuel = Jetpack.FuelForStart;
             //DOTween.Kill("SoftlaunchZ");
