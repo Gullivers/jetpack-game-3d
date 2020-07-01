@@ -96,7 +96,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         transform.position = LastCheckpoint;
         particleControl.StopJetpackParticle();
         Jetpack.FallingOn = false;
-      
+
 
     }
     void ResetTrajectory()
@@ -111,10 +111,11 @@ public class GG_PlayerTrigger : MonoBehaviour
 
     public void Retrylevel()
     {
+        ResetTrajectory();
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
         Jetpack.FallingOn = false;
-        Jetpack.Fuel=Jetpack.FuelForStart;
+        Jetpack.Fuel = Jetpack.FuelForStart;
         Jetpack.JetPackOn = false;
         Jetpack.CanTap = true;
         transform.position = new Vector3(0, 3, 0);
