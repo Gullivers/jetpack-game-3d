@@ -40,7 +40,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        UnusedDotsIndex = 0;
+     
         if (JectPack.JetPackOn)
         {
             RaycastHit hit;
@@ -53,7 +53,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                 if (y1 < 0) { break; }
 
                 Dots[k].position = new Vector3(0, y1, x1);  //Position is applied to each point
-                UnusedDotsIndex++;
+            
                 if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.forward), out hit, .3f))
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
@@ -89,10 +89,10 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
 
                 }
             }
-            for (int i = UnusedDotsIndex; i < Dots.Length; i++)
-            {
-                Dots[i].position = Vector3.zero;
-            }
+            // for (int i = UnusedDotsIndex; i < Dots.Length; i++)
+            // {
+            //     Dots[i].position = Vector3.zero;
+            // }
             //transform.GetChild(LastDotIndex).GetComponent<MeshFilter>().mesh=PlaneMesh;
             //TrajectoryLastPointer.position = transform.GetChild(LastDotIndex).position;
             // for (int i =LastDot; i < 50; i++)

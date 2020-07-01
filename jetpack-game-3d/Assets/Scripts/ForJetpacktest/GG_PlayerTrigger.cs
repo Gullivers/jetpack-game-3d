@@ -39,7 +39,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         {
 
             ResetTrajectory();
-              aAnimator.SetTrigger("JPoff");
+            aAnimator.SetTrigger("JPoff");
             particleControl.StopJetpackParticle();
             Jetpack.Fuel = Jetpack.FuelForStart;
             //DOTween.Kill("SoftlaunchZ");
@@ -67,7 +67,13 @@ public class GG_PlayerTrigger : MonoBehaviour
         {
             ResetTrajectory();
             particleControl.StopJetpackParticle();
+            DOTween.Kill("Softlaunch");
+            DOTween.Kill("SoftlaunchAngle");
+            Jetpack.FallingOn = false;
+            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
+            transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             rb.velocity = Vector3.zero;
+            Jetpack.Xdegree = 0;
             Jetpack.CanTap = true;
             rb.useGravity = false;
             FinishEvent.Raise();
@@ -90,6 +96,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         transform.position = LastCheckpoint;
         particleControl.StopJetpackParticle();
         Jetpack.FallingOn = false;
+      
 
     }
     void ResetTrajectory()

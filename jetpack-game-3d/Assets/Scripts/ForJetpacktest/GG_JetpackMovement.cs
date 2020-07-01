@@ -16,16 +16,20 @@ public class GG_JetpackMovement : MonoBehaviour
     [SerializeField] float SoftlaunchMin, SoftlaunchMax;
     [SerializeField] float SoftLaunchDuration;
     [SerializeField] Ease LaunchEase;
+    [SerializeField] Ease LangindEase;
+
 
     [HideInInspector]
     public bool JetPackOn = false;
     [HideInInspector]
     public bool FallingOn = false;
+    bool InWater = false;
     [HideInInspector]
     public int DotCounter = 1;
 
     bool DummyJetPackOn = true;
     bool DummySoftlaunch = true;
+    bool DummySoftlaunch2 = true;
     bool DummyFalling = true;
 
     [HideInInspector]
@@ -40,6 +44,7 @@ public class GG_JetpackMovement : MonoBehaviour
     Rigidbody rb;
 
     Animator aAnimator;
+    [SerializeField] Transform Parent;
 
 
     private void Awake()
@@ -71,8 +76,10 @@ public class GG_JetpackMovement : MonoBehaviour
                 CanFillFuel = false;
                 particleControl.StartJetpackParticle();
                 DummyFalling = DummySoftlaunch = true;
+                DummySoftlaunch2 = true;
                 DummyJetPackOn = false;
-                //transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
+                InWater = false;
+
             }
 
             Fuel -= .1f;
@@ -83,11 +90,16 @@ public class GG_JetpackMovement : MonoBehaviour
         #endregion
         #region  Jetpack is Off
         else if (FallingOn)
+
         {
 
-            Xdegree -= DegreeIncreser;
-            Xdegree = Mathf.Clamp(Xdegree, -JetpackAngle, JetpackAngle);
-            transform.rotation = Quaternion.Euler(Xdegree, 0, 0);
+            if (PointerTrajectory.localPosition.y <= -14 && !InWater) { InWater = true; }
+            if (DummySoftlaunch2)
+            {
+                Xdegree -= DegreeIncreser;
+                Xdegree = Mathf.Clamp(Xdegree, -JetpackAngle, JetpackAngle);
+                transform.rotation = Quaternion.Euler(Xdegree, 0, 0);
+            }
             Fuel += FuelRegeneration;
             Fuel = Mathf.Clamp(Fuel, 0f, FuelForStart);
             if (DummyFalling)
@@ -103,7 +115,7 @@ public class GG_JetpackMovement : MonoBehaviour
 
 
             if (Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax && Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin
-             && DummySoftlaunch)
+             && DummySoftlaunch && !InWater)
             {
                 aAnimator.ResetTrigger("JPoff");
                 aAnimator.SetFloat("ShakingSpeed", 5f);
@@ -112,18 +124,24 @@ public class GG_JetpackMovement : MonoBehaviour
                 Debug.Log(PointerTrajectory.position + "  PointerPos");
                 DummySoftlaunch = false;
 
-
-
-                if (transform.position.y - PointerTrajectory.position.y > 6f)
+                if (transform.position.y - PointerTrajectory.position.y > 4f && transform.position.z - PointerTrajectory.position.z < 2f && DummySoftlaunch2)
                 {
-                    aAnimator.SetTrigger("Soft_Landing");
+                    DummySoftlaunch2 = false;
+                    //aAnimator.SetTrigger("Soft_Landing");
                     rb.useGravity = false;
                     rb.velocity = Vector3.zero;
-                    transform.DOMove(PointerTrajectory.position, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+                    SoftlandingTween();
+                    // transform.DOMoveY(PointerTrajectory.position.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+                    // transform.DOMoveZ(PointerTrajectory.position.z, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+
                 }
                 particleControl.StartJetpackParticle();
                 //transform.DOLocalRotate(new Vector3(-10, 0, 0), 1f).SetId("SoftlaunchAngle");
 
+            }
+            else
+            {
+                //Falling Water Part
             }
             aAnimator.SetFloat("ShakingSpeed", aAnimator.GetFloat("ShakingSpeed") - .05f);
             if (aAnimator.GetFloat("ShakingSpeed") <= 0) { aAnimator.SetTrigger("JPoff"); }
@@ -164,7 +182,35 @@ public class GG_JetpackMovement : MonoBehaviour
         CanTap = false;
 
     }
-
+    void SoftlandingTween()
+    {   //Y Z pos 
+        //Y pos
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.DOMoveY(PointerTrajectory.position.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+        //Z pos
+        Sequence Zsq = DOTween.Sequence();
+        
+        Zsq.Append(transform.DOMoveZ(PointerTrajectory.position.z + .5f, SoftLaunchDuration / 2f).SetEase(LaunchEase))
+        .Append(transform.DOMoveZ(PointerTrajectory.position.z , SoftLaunchDuration / 4f).SetEase(LaunchEase));
+        //.Append(transform.DOMoveZ(PointerTrajectory.position.z, SoftLaunchDuration / 4f).SetEase(LaunchEase)); //.SetId("Softlaunch");
+        // //X pos 
+        // Sequence XSq = DOTween.Sequence();
+        // XSq.Append(transform.DOMoveX(transform.position.x + 1f, .3f).SetEase(LangindEase))
+        // .Append(transform.DOMoveX(transform.position.x - 1f, .6f).SetEase(LangindEase))
+        // .Append(transform.DOMoveX(transform.position.x, .3f).SetEase(LangindEase));
+        //Rotate Z X
+        Sequence RSq = DOTween.Sequence();
+        RSq.Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 10, transform.rotation.y, transform.rotation.z+15), .4f).SetEase(LangindEase))
+        .Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 20, transform.rotation.y, transform.rotation.z-15), .6f).SetEase(LangindEase))
+        .Append(transform.DOLocalRotate(new Vector3(0, transform.rotation.y, transform.rotation.z), .4f).SetEase(LangindEase));
+        #region  SecondRotate
+        //  Sequence RSq = DOTween.Sequence();
+        // RSq.Append(transform.DOLocalRotate(new Vector3( - 25, transform.rotation.y,+5), .6f).SetEase(LangindEase))
+        // .Append(transform.DOLocalRotate(new Vector3(-30, transform.rotation.y, 0), .2f).SetEase(LangindEase))
+        // .Append(transform.DOLocalRotate(new Vector3(-20, transform.rotation.y,-5), .4f).SetEase(LangindEase))
+        // .Append(transform.DOLocalRotate(new Vector3(0, transform.rotation.y,0), .6f).SetEase(LangindEase));
+        #endregion
+    }
     void FuelIsEmpty()
     {
         if (JetPackOn)
