@@ -43,7 +43,7 @@ public class RoadCreator : MonoBehaviour
         }
     }
 
-    void SpawnBots()
+   public void SpawnBots()
     {
         for (int i = 1; i < HowManyBot.Length+1; i++)
         {

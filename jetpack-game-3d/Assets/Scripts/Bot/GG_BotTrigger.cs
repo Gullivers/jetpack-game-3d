@@ -18,7 +18,7 @@ public class GG_BotTrigger : MonoBehaviour
 
     private void Start()
     {
-        xPos = transform.position.x;
+        xPos = transform.localPosition.x;
         rb = GetComponent<Rigidbody>();
         LastCheckpoint = transform.position;
         particleControl = GetComponent<GG_ParticleControl>();
@@ -98,21 +98,18 @@ public class GG_BotTrigger : MonoBehaviour
 
     public void Retrylevel()
     {
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        BotTrajectory.CanMove = false;
-        DOTween.Kill("FallingAngle");
-        transform.rotation = Quaternion.EulerAngles(0, 0, 0);
-        JetpackMove.SetLevel();
-        particleControl.StopJetpackParticle();
+        Destroy(this.gameObject);
+        // transform.position = new Vector3(xPos, 3, 0);
 
-
-
-        transform.position = new Vector3(xPos, 3, 0);
-
-        LastCheckpoint = transform.position;
-        LastTransform = this.transform;
-
-        StartCoroutine(WaitAndGoOn());
+        // rb.velocity = Vector3.zero;
+        // BotTrajectory.CanMove = false;
+        // DOTween.Kill("FallingAngle");
+        // transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+        // JetpackMove.SetLevel();
+        // particleControl.StopJetpackParticle();
+        // LastCheckpoint = transform.position;
+        // LastTransform = this.transform;
+        // rb.useGravity = false;
+        // StartCoroutine(WaitAndGoOn());
     }
 }
