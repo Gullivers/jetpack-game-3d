@@ -123,8 +123,7 @@ public class GG_JetpackMovement : MonoBehaviour
                 aAnimator.ResetTrigger("JPoff");
                 aAnimator.SetFloat("ShakingSpeed", 5f);
 
-                Debug.Log("Softlaunch");
-                Debug.Log(PointerTrajectory.position + "  PointerPos");
+               
                 DummySoftlaunch = false;
                 //In SotfLanding when distances is ok
                 if (transform.position.y - PointerTrajectory.position.y > 4f && transform.position.z - PointerTrajectory.position.z < 2f && DummySoftlaunch2)

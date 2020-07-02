@@ -37,9 +37,10 @@ public class GG_BotTrigger : MonoBehaviour
             SetLastCheckpoint();
             Debug.Log("Girdii Front");
         }
-        if (col.tag == "Platform")
+        else if (col.tag == "Platform")
         {
             PlatformPassed(col);
+            particleControl.StartLandingPart();
 
         }
         if (col.tag == "Water")
@@ -50,6 +51,7 @@ public class GG_BotTrigger : MonoBehaviour
         if (col.tag == "Finish")
         {
             particleControl.StopJetpackParticle();
+            particleControl.StartLandingPart();
             rb.velocity = Vector3.zero;
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
 

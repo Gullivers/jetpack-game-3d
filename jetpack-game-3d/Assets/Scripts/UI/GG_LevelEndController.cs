@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GG_CanvasController : MonoBehaviour
 {
     [SerializeField] Button LoseBtn, NextBtn;
-    [SerializeField] GG_JPLevels LevelAsset;
+    //[SerializeField] GG_JPLevels LevelAsset;
 
     public void Lose()
     {
@@ -18,6 +18,6 @@ public class GG_CanvasController : MonoBehaviour
         LoseBtn.gameObject.SetActive(false);
         NextBtn.gameObject.SetActive(true);
 
-        LevelAsset.PlayerLevel = LevelAsset.PlayerLevel + 1;
+        PlayerPrefs.SetInt("PlayerLevel",PlayerPrefs.GetInt("PlayerLevel")+1);
     }
 }

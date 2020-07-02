@@ -22,13 +22,14 @@ public class RoadCreator : MonoBehaviour
         //HowManyPlatform = LevelAsset.Levels[PlayerLevel].HowManyPlatform;
         CreateRoad();
         SpawnBots();
+        Debug.Log(PlayerPrefs.GetInt("PlayerLevel"));
 
 
     }
 
     public void CreateRoad()
     {
-        PlayerLevel = LevelAsset.PlayerLevel;
+        PlayerLevel = PlayerPrefs.GetInt("PlayerLevel");
         HowManyPlatform = LevelAsset.Levels[PlayerLevel].HowManyPlatform;
         ClearChilds();
         zpos = 30;
@@ -52,7 +53,8 @@ public class RoadCreator : MonoBehaviour
 
     public void SpawnBots()
     {
-        PlayerLevel = LevelAsset.PlayerLevel;
+        BotxPos = 3f;
+        PlayerLevel = PlayerPrefs.GetInt("PlayerLevel");
         for (int i = 1; i < LevelAsset.Levels[PlayerLevel].Bots.Length + 1; i++)
         {
             if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Easy)
@@ -69,7 +71,7 @@ public class RoadCreator : MonoBehaviour
                 TempBot = Instantiate(Bots[2]).transform;
             }
 
-            if (i % 1 == 0) { BotxPos = -BotxPos; }
+            BotxPos = -BotxPos;
 
             TempBot.transform.position = new Vector3(BotxPos, 3, 0);
             if (i % 2 == 0) { BotxPos += 3f; }

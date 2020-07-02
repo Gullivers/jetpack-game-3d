@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GG_LevelEndController : MonoBehaviour
+public class GG_LevelEnd_Controller : MonoBehaviour
 {
     [SerializeField] Button LoseBtn, NextBtn;
-    [SerializeField] GG_JPLevels LevelAsset;
+
     bool LoseDummy, WinDummy;
-
-
     public void Lose()
     {
         if (!WinDummy)
@@ -35,7 +33,5 @@ public class GG_LevelEndController : MonoBehaviour
         NextBtn.gameObject.SetActive(false);
         WinDummy = LoseDummy = false;
     }
-
-
 
 }

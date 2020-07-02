@@ -22,7 +22,7 @@ public class GG_ParticleControl : MonoBehaviour
         Fire1.Play();
         Fire2.Play();
     }
-    public void StartLangingPart()
+    public void StartLandingPart()
     {
         LandingParticle.Play();
     }
