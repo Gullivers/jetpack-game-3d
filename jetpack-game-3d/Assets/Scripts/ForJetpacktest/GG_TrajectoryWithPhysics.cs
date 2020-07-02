@@ -54,7 +54,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
 
                 Dots[k].position = new Vector3(0, y1, x1);  //Position is applied to each point
             
-                if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.forward), out hit, .3f))
+                if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.forward), out hit, .6f))
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
@@ -65,7 +65,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                     }
 
                 }
-                else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.down), out hit, .3f))
+                else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.down), out hit, .6f))
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {
@@ -77,7 +77,7 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
                     }
 
                 }
-                else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, .3f))
+                else if (Physics.Raycast(new Ray(new Vector3(0, y1, x1), Vector3.up), out hit, .6f))
                 {
                     if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Player") && hit.transform.gameObject.layer != LayerMask.NameToLayer("Trajectory"))
                     {

@@ -35,12 +35,13 @@ public class GG_PlayerTrigger : MonoBehaviour
             SetLastCheckpoint();
             Debug.Log("Girdii Front");
         }
-        if (col.tag == "Platform")
+        else if (col.tag == "Platform")
         {
 
             ResetTrajectory();
             aAnimator.SetTrigger("JPoff");
             particleControl.StopJetpackParticle();
+            particleControl.StartLangingPart();
             Jetpack.Fuel = Jetpack.FuelForStart;
             //DOTween.Kill("SoftlaunchZ");
             Jetpack.FallingOn = false;
@@ -67,6 +68,7 @@ public class GG_PlayerTrigger : MonoBehaviour
         {
             ResetTrajectory();
             particleControl.StopJetpackParticle();
+            particleControl.StartLangingPart();
             DOTween.Kill("Softlaunch");
             DOTween.Kill("SoftlaunchAngle");
             Jetpack.FallingOn = false;

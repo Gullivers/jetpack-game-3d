@@ -5,6 +5,7 @@ using UnityEngine;
 public class GG_ParticleControl : MonoBehaviour
 {
     [SerializeField] ParticleSystem Smoke1, Smoke2, Fire1, Fire2;
+    [SerializeField] ParticleSystem LandingParticle;
     // [SerializeField] ParticleSystem SoftlaunchParticle1, SoftlaunchParticle2;
 
     public void StopJetpackParticle()
@@ -20,7 +21,11 @@ public class GG_ParticleControl : MonoBehaviour
         Smoke2.Play();
         Fire1.Play();
         Fire2.Play();
-     }
+    }
+    public void StartLangingPart()
+    {
+        LandingParticle.Play();
+    }
     // public void StartSoftLaunchPatricle()
     // {
     //     SoftlaunchParticle1.Play();

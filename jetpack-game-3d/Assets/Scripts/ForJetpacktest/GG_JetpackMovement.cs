@@ -189,7 +189,7 @@ public class GG_JetpackMovement : MonoBehaviour
     void SoftlandingTween()
     {   //Y Z pos 
         //Y pos
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.DOMoveY(PointerTrajectory.position.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
         //Z pos
         Sequence Zsq = DOTween.Sequence();
@@ -206,9 +206,10 @@ public class GG_JetpackMovement : MonoBehaviour
         #endregion
         //Rotate Z X
         Sequence RSq = DOTween.Sequence();
-        RSq.Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 10, transform.rotation.y, transform.rotation.z + 15), .4f).SetEase(LangindEase))
-        .Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 20, transform.rotation.y, transform.rotation.z - 15), .6f).SetEase(LangindEase))
-        .Append(transform.DOLocalRotate(new Vector3(0, transform.rotation.y, transform.rotation.z), .4f).SetEase(LangindEase));
+        RSq.Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 10, transform.rotation.y, transform.rotation.z + 15), .2f).SetEase(LangindEase))
+        .Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 20, transform.rotation.y, transform.rotation.z), .3f).SetEase(LangindEase))
+        .Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 10, transform.rotation.y, transform.rotation.z - 15), .3f).SetEase(LangindEase))
+        .Append(transform.DOLocalRotate(new Vector3(0, transform.rotation.y, transform.rotation.z), .2f).SetEase(LangindEase));
         #region  SecondRotate
         //  Sequence RSq = DOTween.Sequence();
         // RSq.Append(transform.DOLocalRotate(new Vector3( - 25, transform.rotation.y,+5), .6f).SetEase(LangindEase))

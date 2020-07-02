@@ -4,35 +4,42 @@ using UnityEngine;
 
 public class RoadCreator : MonoBehaviour
 {
+    [SerializeField] GG_JPLevels LevelAsset;
     [SerializeField] GameObject Plane;
     [SerializeField] GameObject Water;
     [SerializeField] GameObject[] Bots; //0 Easy /1 Middle /2 Hard
-    [SerializeField] BotLevel[] HowManyBot;
-  
-    [SerializeField] int HowManyPlatform;
+
+
+    int HowManyPlatform;
+    int PlayerLevel;
     Transform TempBot;
-    float xpos;
+    float zpos;
     float BotxPos = 3f;
 
     void Awake()
     {
+        //PlayerLevel = LevelAsset.PlayerLevel;
+        //HowManyPlatform = LevelAsset.Levels[PlayerLevel].HowManyPlatform;
         CreateRoad();
         SpawnBots();
+
 
     }
 
     public void CreateRoad()
     {
+        PlayerLevel = LevelAsset.PlayerLevel;
+        HowManyPlatform = LevelAsset.Levels[PlayerLevel].HowManyPlatform;
         ClearChilds();
-        xpos = 30;
+        zpos = 30;
         Transform tempWater = Instantiate(Water, this.transform).transform;
         tempWater.localScale = new Vector3(tempWater.localScale.x, tempWater.localScale.y, HowManyPlatform * 20);
         for (int i = 0; i < HowManyPlatform; i++)
         {
-            Transform temp = Instantiate(Plane, new Vector3(0, Random.Range(-7f, 2f), xpos), Quaternion.identity).transform;
+            Transform temp = Instantiate(Plane, new Vector3(0, Random.Range(-7f, -1f), zpos), Quaternion.identity).transform;
             temp.parent = this.transform;
             if (i == HowManyPlatform - 1) { temp.tag = "Finish"; }
-            xpos += 50;
+            zpos += 50;
         }
     }
     void ClearChilds()
@@ -43,25 +50,26 @@ public class RoadCreator : MonoBehaviour
         }
     }
 
-   public void SpawnBots()
+    public void SpawnBots()
     {
-        for (int i = 1; i < HowManyBot.Length+1; i++)
+        PlayerLevel = LevelAsset.PlayerLevel;
+        for (int i = 1; i < LevelAsset.Levels[PlayerLevel].Bots.Length + 1; i++)
         {
-            if (HowManyBot[i - 1] == BotLevel.Easy)
+            if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Easy)
             {
                 TempBot = Instantiate(Bots[0]).transform;
 
             }
-            else if (HowManyBot[i - 1] == BotLevel.Middle)
+            else if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Middle)
             {
                 TempBot = Instantiate(Bots[1]).transform;
             }
-            else if (HowManyBot[i - 1] == BotLevel.Hard)
+            else if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Hard)
             {
                 TempBot = Instantiate(Bots[2]).transform;
             }
 
-            if(i%1==0){BotxPos=-BotxPos;}
+            if (i % 1 == 0) { BotxPos = -BotxPos; }
 
             TempBot.transform.position = new Vector3(BotxPos, 3, 0);
             if (i % 2 == 0) { BotxPos += 3f; }
