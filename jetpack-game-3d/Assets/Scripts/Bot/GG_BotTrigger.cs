@@ -98,6 +98,7 @@ public class GG_BotTrigger : MonoBehaviour
 
     public void Retrylevel()
     {
+        DOTween.Kill("FallingAngle");
         Destroy(this.gameObject);
         // transform.position = new Vector3(xPos, 3, 0);
 

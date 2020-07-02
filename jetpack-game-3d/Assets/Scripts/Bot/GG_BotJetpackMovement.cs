@@ -50,7 +50,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
                 particleControl.StartJetpackParticle();
                 DummyFalling = DummySoftlaunch = true;
                 DummyJetPackOn = false;
-                transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f);
+                transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f).SetId("FallingAngle");;
             }
 
             rb.AddForce(Vector3.up * UpSpeed);
