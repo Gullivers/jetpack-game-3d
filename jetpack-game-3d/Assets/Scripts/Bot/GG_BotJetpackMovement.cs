@@ -10,31 +10,37 @@ public class GG_BotJetpackMovement : MonoBehaviour
     [SerializeField] float ForwardSpeed;
     [SerializeField] float UpSpeed;
     [SerializeField] float JetpackAngle;
-    [SerializeField] float SoftlaunchMin, SoftlaunchMax;
-    float MinDuration, maxDuration;
+    [Header("Softland Settings")]
+    [SerializeField] float SoftlaunchMin;
+    [SerializeField] float SoftlaunchMax;
     [SerializeField] float SoftLaunchDuration;
     [SerializeField] Ease LaunchEase;
     [SerializeField] Ease LangindEase;
+    #region Random Values
+    float MinDuration, maxDuration;
     [SerializeField] float WaitTime;
 
+    #endregion
 
+    #region Dummys
     bool DummyJetPackOn = true;
     bool DummySoftlaunch = true;
 
     bool DummySoftlaunch2 = true;
     bool DummyFalling = true;
-    [SerializeField] bool InWater = false;
-
+    bool InWater = false;
+    #endregion
+    #region  BotSettings
+    [Header("Bot Settings")]
+    [SerializeField] BotLevel level;
     [HideInInspector]
     public int LoseTry;
     [HideInInspector]
     public bool MadedPass;
 
-    Rigidbody rb;
-
-    [Header("Bot Settings")]
-    [SerializeField] BotLevel level;
     [SerializeField] int TryLimit;
+    #endregion
+    Rigidbody rb;
 
     private void Awake()
     {
@@ -68,24 +74,27 @@ public class GG_BotJetpackMovement : MonoBehaviour
         #region  Jetpack is Off
         else
         {
-            //if (botTrajectory.hitPoint.y <= -14 && !InWater) { InWater = true; }
+            if (botTrajectory.hitPoint.y <= -14 && !InWater) { InWater = true; }
             if (DummyFalling)
             {
                 DummyJetPackOn = true;
                 rb.useGravity = true;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f).SetId("FallingAngle"+transform.name);
+                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f).SetId("FallingAngle" + transform.name);
                 DummyFalling = false;
 
             }
 
-            if (Vector3.Distance(transform.position, botTrajectory.hitPoint) > SoftlaunchMin && Vector3.Distance(transform.position, botTrajectory.hitPoint) < SoftlaunchMax
+            if (Vector3.Distance(transform.position, botTrajectory.hitPoint) > SoftlaunchMin
+             && Vector3.Distance(transform.position, botTrajectory.hitPoint) < SoftlaunchMax
              && DummySoftlaunch && !InWater)
             {
                 DummySoftlaunch = false;
-                if (transform.position.y - botTrajectory.hitPoint.y > 4f && transform.position.z - botTrajectory.hitPoint.z < 2f && DummySoftlaunch2)
+                if (transform.position.y - botTrajectory.hitPoint.y > 4f
+                && transform.position.z - botTrajectory.hitPoint.z < 2f
+                && DummySoftlaunch2)
                 {
                     DummySoftlaunch2 = false;
-                    //aAnimator.SetTrigger("Soft_Landing");
+
                     rb.useGravity = false;
                     rb.velocity = Vector3.zero;
                     SoftlandingTween();
@@ -93,7 +102,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
 
                 }
                 particleControl.StartJetpackParticle();
-                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f).SetId("FallingAngle"+transform.name);
+                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f).SetId("FallingAngle" + transform.name);
 
             }
 
@@ -103,16 +112,13 @@ public class GG_BotJetpackMovement : MonoBehaviour
 
     public IEnumerator WaitForRandom()
     {
-
-
-
         yield return new WaitForSeconds(WaitTime);
         botTrajectory.CanMove = false;
     }
 
     public void SetLevel()
     {
-        MadedPass = false;
+        MadedPass = false;  //Resetting Values
         LoseTry = 0;
         switch (level)
         {
@@ -161,23 +167,15 @@ public class GG_BotJetpackMovement : MonoBehaviour
     void MakeItPassLevel() { MinDuration = .2f; maxDuration = .5f; MadedPass = true; }
 
     void SoftlandingTween()
-    {   //Y Z pos 
+    {
         //Y pos
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.DOMoveY(botTrajectory.hitPoint.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch" + this.transform.name);
         //Z pos
         Sequence Zsq = DOTween.Sequence();
 
         Zsq.Append(transform.DOMoveZ(botTrajectory.hitPoint.z + .5f, SoftLaunchDuration / 2f).SetEase(LaunchEase))
         .Append(transform.DOMoveZ(botTrajectory.hitPoint.z, SoftLaunchDuration / 4f).SetEase(LaunchEase));
-        #region OldXpos
-        //.Append(transform.DOMoveZ(PointerTrajectory.position.z, SoftLaunchDuration / 4f).SetEase(LaunchEase)); //.SetId("Softlaunch");
-        // //X pos 
-        // Sequence XSq = DOTween.Sequence();
-        // XSq.Append(transform.DOMoveX(transform.position.x + 1f, .3f).SetEase(LangindEase))
-        // .Append(transform.DOMoveX(transform.position.x - 1f, .6f).SetEase(LangindEase))
-        // .Append(transform.DOMoveX(transform.position.x, .3f).SetEase(LangindEase));
-        #endregion
+
         //Rotate Z X
         Sequence RSq = DOTween.Sequence();
         RSq.Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 10, transform.rotation.y, transform.rotation.z + 15), .2f).SetEase(LangindEase))
@@ -190,6 +188,14 @@ public class GG_BotJetpackMovement : MonoBehaviour
         // .Append(transform.DOLocalRotate(new Vector3(-30, transform.rotation.y, 0), .2f).SetEase(LangindEase))
         // .Append(transform.DOLocalRotate(new Vector3(-20, transform.rotation.y,-5), .4f).SetEase(LangindEase))
         // .Append(transform.DOLocalRotate(new Vector3(0, transform.rotation.y,0), .6f).SetEase(LangindEase));
+        #endregion
+        #region OldXpos
+        //.Append(transform.DOMoveZ(PointerTrajectory.position.z, SoftLaunchDuration / 4f).SetEase(LaunchEase)); //.SetId("Softlaunch");
+        // //X pos 
+        // Sequence XSq = DOTween.Sequence();
+        // XSq.Append(transform.DOMoveX(transform.position.x + 1f, .3f).SetEase(LangindEase))
+        // .Append(transform.DOMoveX(transform.position.x - 1f, .6f).SetEase(LangindEase))
+        // .Append(transform.DOMoveX(transform.position.x, .3f).SetEase(LangindEase));
         #endregion
     }
 

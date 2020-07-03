@@ -35,21 +35,19 @@ public class GG_BotTrigger : MonoBehaviour
         if (col.tag == "PlatformFront")
         {
             SetLastCheckpoint();
-           // Debug.Log("Girdii Front");
+          
         }
         if (col.tag == "Platform")
         {
             PlatformPassed(col);
-            DOTween.Kill("Softlaunch" + this.transform.name);
-            particleControl.StartLangingPart();
-              
-           
-
+            DOTween.Kill("Softlaunch" + this.transform.name); //Killing Tweens
+            particleControl.StartLangingPart(); //Pof particle
+          
         }
         if (col.tag == "Water")
         {
             SetLastCheckpoint();
-            Debug.Log("Girdii Water");
+          
         }
         if (col.tag == "Finish")
         {
@@ -57,13 +55,11 @@ public class GG_BotTrigger : MonoBehaviour
             rb.velocity = Vector3.zero;
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             DOTween.Kill("Softlaunch" + this.transform.name);
-             DOTween.Kill("FallingAngle"+transform.name);
-            particleControl.StartLangingPart();
-            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
-            
-
+            DOTween.Kill("FallingAngle"+transform.name);
+            particleControl.StartLangingPart(); //Pof particle
+            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);//Set position to top the Platform
             rb.useGravity = false;
-
+            //Raising Lose Event
             LoseEvent.Raise();
 
         }
@@ -74,7 +70,7 @@ public class GG_BotTrigger : MonoBehaviour
          DOTween.Kill("FallingAngle"+transform.name);
         if (!JetpackMove.MadedPass) { JetpackMove.LoseTry++; }
 
-        JetpackMove.SetWaitTime();
+        JetpackMove.SetWaitTime(); //Choose random wait time again
 
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
 
@@ -90,14 +86,18 @@ public class GG_BotTrigger : MonoBehaviour
 
     }
     void PlatformPassed(Collider col)
-    {    DOTween.Kill("FallingAngle"+transform.name);
-        JetpackMove.SetWaitTime();
-        if (JetpackMove.MadedPass) { JetpackMove.SetLevel(); }
+    {   DOTween.Kill("FallingAngle"+transform.name);
+        JetpackMove.SetWaitTime();//Choose random wait time again
+
+
+        if (JetpackMove.MadedPass) { JetpackMove.SetLevel(); } 
         particleControl.StopJetpackParticle();
-        transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
+
+        transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);//Set position to top the Platform
         transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+
         LastCheckpoint = transform.position;
-        LastTransform = col.transform;
+        LastTransform = col.transform; // İndiği platformu sonraki kalkışlarda dikkate almaması için
         StartCoroutine(WaitAndGoOn());
     }
     IEnumerator WaitAndGoOn()
@@ -110,17 +110,6 @@ public class GG_BotTrigger : MonoBehaviour
     {
         DOTween.Kill("FallingAngle"+transform.name);
         Destroy(this.gameObject);
-        // transform.position = new Vector3(xPos, 3, 0);
-
-        // rb.velocity = Vector3.zero;
-        // BotTrajectory.CanMove = false;
-        // DOTween.Kill("FallingAngle");
-        // transform.rotation = Quaternion.EulerAngles(0, 0, 0);
-        // JetpackMove.SetLevel();
-        // particleControl.StopJetpackParticle();
-        // LastCheckpoint = transform.position;
-        // LastTransform = this.transform;
-        // rb.useGravity = false;
-        // StartCoroutine(WaitAndGoOn());
+        
     }
 }

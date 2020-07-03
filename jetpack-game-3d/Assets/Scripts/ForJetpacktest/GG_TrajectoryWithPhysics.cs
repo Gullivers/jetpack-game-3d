@@ -15,29 +15,6 @@ public class GG_TrajectoryWithPhysics : MonoBehaviour
     [SerializeField] Transform TrajectoryLastPointer;
    
 
-   
-
-    private void Awake()
-    {
-        // for (int i = 0; i < Dots.Length; i++)
-        // {
-
-
-        //     Transform temp = Instantiate(Sphere, this.transform).transform;
-        //     if (i % 20 == 0) { temp.GetComponent<Renderer>().enabled = true; }
-        //     else { temp.GetComponent<Renderer>().enabled = false; }
-        //     temp.name = i.ToString();
-        // }
-    }
-    void Start()
-    {
-        // for (int i = 0; i < transform.childCount; i++)
-        // {
-        //     Dots[i] = transform.GetChild(i).transform;
-        // }
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
      

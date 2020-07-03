@@ -18,20 +18,18 @@ public class RoadCreator : MonoBehaviour
 
     void Awake()
     {
-        //PlayerLevel = LevelAsset.PlayerLevel;
-        //HowManyPlatform = LevelAsset.Levels[PlayerLevel].HowManyPlatform;
         CreateRoad();
         SpawnBots();
 
-
     }
 
+    //Y de -7,-1 Z de 30 dan başlayarak 50 şer artırarak ilerliyor
     public void CreateRoad()
     {
         PlayerLevel = PlayerPrefs.GetInt("PlayerLevel");
         Debug.Log(PlayerPrefs.GetInt("PlayerLevel")+"  Prefs");
         HowManyPlatform = LevelAsset.Levels[PlayerLevel].HowManyPlatform;
-        ClearChilds();
+        ClearChilds(); //Clearing old childs 
         zpos = 30;
         Transform tempWater = Instantiate(Water, this.transform).transform;
         tempWater.localScale = new Vector3(tempWater.localScale.x, tempWater.localScale.y, HowManyPlatform * 20);
@@ -43,6 +41,7 @@ public class RoadCreator : MonoBehaviour
             zpos += 50;
         }
     }
+    //Before Creating new Platforms
     void ClearChilds()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -53,6 +52,7 @@ public class RoadCreator : MonoBehaviour
 
     public void SpawnBots()
     {
+        //Botları (-3,+3,+6,-6) şeklinde dizerek oluşturuyor //BOts[] 0->Easy 1->Middle 2->Hard
         BotxPos = 3f;
         PlayerLevel = PlayerPrefs.GetInt("PlayerLevel");
         for (int i = 1; i < LevelAsset.Levels[PlayerLevel].Bots.Length + 1; i++)

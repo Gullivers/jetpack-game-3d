@@ -26,15 +26,6 @@ public class GG_ParticleControl : MonoBehaviour
     {
         LandingParticle.Play();
     }
-    // public void StartSoftLaunchPatricle()
-    // {
-    //     SoftlaunchParticle1.Play();
-    //     SoftlaunchParticle2.Play();
-    // }
-    // public void StopSoftLaunchPatricle()
-    // {
-    //     SoftlaunchParticle1.Stop();
-    //     SoftlaunchParticle2.Stop();
-    // }
+    
 
 }

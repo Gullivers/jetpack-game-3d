@@ -33,61 +33,56 @@ public class GG_PlayerTrigger : MonoBehaviour
 
         if (col.tag == "PlatformFront")
         {
-
             SetLastCheckpoint();
             ResetTrajectory();
-            Debug.Log("PGirdii Front");
-            return;
+          
         }
         if (col.tag == "Platform")
-        {
-            Debug.Log("PGirdii Platform");
-
+        {  
+            //Animator && Particles
             aAnimator.SetTrigger("JPoff");
             particleControl.StopJetpackParticle();
             particleControl.StartLangingPart();
+            //Reset Fuel
             Jetpack.Fuel = Jetpack.FuelForStart;
-            //DOTween.Kill("SoftlaunchZ");
+            //Reset bools && tweens for fallling
             Jetpack.FallingOn = false;
-            Jetpack.CanFillFuel = true;
+            //Jetpack.CanFillFuel = true;
             DOTween.Kill("Softlaunch" + this.transform.name);
 
-            // DOTween.Kill("SoftlaunchAngle");
-            //DOTween.Kill("Softlaunch");
-            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z); //Set position to top the Platform
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             Jetpack.Xdegree = 0;
-            LastCheckpoint = transform.position;
+            LastCheckpoint = transform.position; //Setting CheckPoint
             ResetTrajectory();
-            return;
+            
 
         }
         if (col.tag == "Water")
         {
-
             SetLastCheckpoint();
-            Debug.Log("Girdii Water");
             ResetTrajectory();
-            return;
+         
         }
         if (col.tag == "Finish")
         {
-
+           //Reset bools && tweens for fallling
             particleControl.StopJetpackParticle();
             particleControl.StartLangingPart();
             DOTween.Kill("Softlaunch" + this.transform.name);
-
             Jetpack.FallingOn = false;
-            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
+
+            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);//Set position to top the Platform
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             rb.velocity = Vector3.zero;
             Jetpack.Xdegree = 0;
             Jetpack.CanTap = true;
             rb.useGravity = false;
             ResetTrajectory();
+            //Event
             FinishEvent.Raise();
-            Debug.Log("Finish raisee");
-            return;
+           
+          
         }
 
     }
@@ -122,6 +117,7 @@ public class GG_PlayerTrigger : MonoBehaviour
 
     }
 
+    //It called with Event 
     public void Retrylevel()
     {
         ResetTrajectory();
