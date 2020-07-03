@@ -5706,6 +5706,7 @@ MonoBehaviour:
   Smoke2: {fileID: 3105487333183249945}
   Fire1: {fileID: 3105487334299466171}
   Fire2: {fileID: 3105487334328783509}
+  LandingParticle: {fileID: 0}
 --- !u!114 &3105487332978372911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5749,7 +5750,11 @@ MonoBehaviour:
   ForwardSpeed: 5
   UpSpeed: 3
   JetpackAngle: 20
-  SoftlaunchMin: 10
+  SoftlaunchMin: 7
+  SoftlaunchMax: 9
+  SoftLaunchDuration: 1.5
+  LaunchEase: 3
+  LangindEase: 1
   WaitTime: 0
   LoseTry: 0
   MadedPass: 0

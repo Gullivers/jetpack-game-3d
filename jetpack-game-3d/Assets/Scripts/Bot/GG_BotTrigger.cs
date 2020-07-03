@@ -40,6 +40,9 @@ public class GG_BotTrigger : MonoBehaviour
         if (col.tag == "Platform")
         {
             PlatformPassed(col);
+            DOTween.Kill("Softlaunch" + this.transform.name);
+              
+            DOTween.Kill(this.gameObject);
 
         }
         if (col.tag == "Water")
@@ -52,6 +55,9 @@ public class GG_BotTrigger : MonoBehaviour
             particleControl.StopJetpackParticle();
             rb.velocity = Vector3.zero;
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+            DOTween.Kill("Softlaunch" + this.transform.name);
+            transform.position = new Vector3(transform.position.x, col.transform.position.y + 9.5f, transform.position.z);
+            
 
             rb.useGravity = false;
 

@@ -190,7 +190,7 @@ public class GG_JetpackMovement : MonoBehaviour
     {   //Y Z pos 
         //Y pos
         //transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.DOMoveY(PointerTrajectory.position.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch");
+        transform.DOMoveY(PointerTrajectory.position.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch"+this.transform.name);
         //Z pos
         Sequence Zsq = DOTween.Sequence();
 

@@ -52,26 +52,33 @@ public class RoadCreator : MonoBehaviour
 
     public void SpawnBots()
     {
+        BotxPos = 3f;
         PlayerLevel = LevelAsset.PlayerLevel;
         for (int i = 1; i < LevelAsset.Levels[PlayerLevel].Bots.Length + 1; i++)
         {
             if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Easy)
             {
                 TempBot = Instantiate(Bots[0]).transform;
+                TempBot.name = "BotEasy" + i.ToString();
 
             }
             else if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Middle)
             {
                 TempBot = Instantiate(Bots[1]).transform;
+                TempBot.name = "BotMiddle" + i.ToString();
+
             }
             else if (LevelAsset.Levels[PlayerLevel].Bots[i - 1] == BotLevel.Hard)
             {
                 TempBot = Instantiate(Bots[2]).transform;
+                TempBot.name = "BotHard" + i.ToString();
+
             }
 
             if (i % 1 == 0) { BotxPos = -BotxPos; }
 
             TempBot.transform.position = new Vector3(BotxPos, 3, 0);
+
             if (i % 2 == 0) { BotxPos += 3f; }
         }
 
