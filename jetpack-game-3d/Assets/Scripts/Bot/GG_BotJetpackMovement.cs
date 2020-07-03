@@ -6,18 +6,23 @@ public class GG_BotJetpackMovement : MonoBehaviour
 {
     GG_ParticleControl particleControl;
     [SerializeField] GG_BotTrajectory botTrajectory;
+    #region  SpeedSettings
     [Header("Speed Settings")]
     [SerializeField] float ForwardSpeed;
     [SerializeField] float UpSpeed;
     [SerializeField] float JetpackAngle;
+    #endregion
+    #region  SoftLandSettings
     [Header("Softland Settings")]
     [SerializeField] float SoftlaunchMin;
     [SerializeField] float SoftlaunchMax;
     [SerializeField] float SoftLaunchDuration;
     [SerializeField] Ease LaunchEase;
     [SerializeField] Ease LangindEase;
+    #endregion
     #region Random Values
     float MinDuration, maxDuration;
+    [HideInInspector]
     [SerializeField] float WaitTime;
 
     #endregion
