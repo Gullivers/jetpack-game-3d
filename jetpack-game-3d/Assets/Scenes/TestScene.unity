@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.003
+  m_FogDensity: 0.002
   m_LinearFogStart: 115.22
   m_LinearFogEnd: 443.91
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 438479940}
   m_IndirectSpecularColor: {r: 0.6436894, g: 0.79593897, b: 0.96622676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -10665,75 +10665,6 @@ Transform:
   m_Father: {fileID: 1319807511}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1210956486
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628241, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655306629436628250, guid: ecd9d88a8f6641e45aea1d6dbe36d894,
-        type: 3}
-      propertyPath: m_Name
-      value: BotE
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ecd9d88a8f6641e45aea1d6dbe36d894, type: 3}
 --- !u!1 &1241288550
 GameObject:
   m_ObjectHideFlags: 0
@@ -11059,8 +10990,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.2904668}
+  m_Center: {x: 0, y: 0, z: 0.3547666}
 --- !u!23 &1648391341
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11197,6 +11128,8 @@ MonoBehaviour:
   Trajectory: {fileID: 2455422168555400418}
   PointerTrajectory: {fileID: 1241288551}
   FinishEvent: {fileID: 11400000, guid: 0ddc95ccc9fe9104fb3385559bb65867, type: 2}
+  CanCollideFront: 1
+  CanCollideUp: 1
 --- !u!54 &1648391347
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13874,7 +13807,7 @@ Transform:
   - {fileID: 1241288551}
   - {fileID: 1648391343}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &753681006546672377
 Transform:

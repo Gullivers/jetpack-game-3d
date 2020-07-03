@@ -137,7 +137,7 @@ public class GG_JetpackMovement : MonoBehaviour
             //SoftLanding Part and Dummy for just once  // Eğer mesafeler uyar ve PointerTrajectory suda değilse softLanding kısmına girecek
             if (Vector3.Distance(transform.position, PointerTrajectory.position) < SoftlaunchMax 
             && Vector3.Distance(transform.position, PointerTrajectory.position) > SoftlaunchMin
-             && DummySoftlaunch && !InWater)
+             && DummySoftlaunch && !InWater&&PointerTrajectory.rotation!=Quaternion.Euler(-90,0,0))
             {
 
                 aAnimator.ResetTrigger("JPoff");        //Resetting animator trigger
@@ -199,6 +199,7 @@ public class GG_JetpackMovement : MonoBehaviour
     }
     void SoftlandingTween()
     {
+           
         //Y pos
         transform.DOMoveY(PointerTrajectory.position.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch" + this.transform.name);
         //Z pos
@@ -212,6 +213,7 @@ public class GG_JetpackMovement : MonoBehaviour
         .Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 20, transform.rotation.y, transform.rotation.z), .3f).SetEase(LangindEase))
         .Append(transform.DOLocalRotate(new Vector3(transform.rotation.x - 10, transform.rotation.y, transform.rotation.z - 15), .3f).SetEase(LangindEase))
         .Append(transform.DOLocalRotate(new Vector3(0, transform.rotation.y, transform.rotation.z), .2f).SetEase(LangindEase));
+
         #region  SecondRotate
         //  Sequence RSq = DOTween.Sequence();
         // RSq.Append(transform.DOLocalRotate(new Vector3( - 25, transform.rotation.y,+5), .6f).SetEase(LangindEase))

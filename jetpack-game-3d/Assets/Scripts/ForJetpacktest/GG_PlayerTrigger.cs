@@ -13,7 +13,9 @@ public class GG_PlayerTrigger : MonoBehaviour
     [SerializeField] Transform PointerTrajectory;
     [SerializeField] GG_VoidEvent FinishEvent;
     Animator aAnimator;
-    bool CanCollide = true;
+    [SerializeField] bool CanCollideFront = true;
+    [SerializeField] bool CanCollideUp = true;
+
     private void Awake()
     {
         aAnimator = GetComponent<Animator>();
@@ -31,14 +33,20 @@ public class GG_PlayerTrigger : MonoBehaviour
         Jetpack.CanTap = true;
 
 
-        if (col.tag == "PlatformFront")
+        if (col.tag == "PlatformFront" && CanCollideFront)
         {
+            CanCollideUp = false;
+            StartCoroutine(ResetTriggerUp());
             SetLastCheckpoint();
             ResetTrajectory();
-          
+
+
+
         }
-        if (col.tag == "Platform")
-        {  
+        else if (col.tag == "Platform" && CanCollideUp)
+        {
+            CanCollideFront = false;
+            StartCoroutine(ResetTriggerFront());
             //Animator && Particles
             aAnimator.SetTrigger("JPoff");
             particleControl.StopJetpackParticle();
@@ -55,18 +63,18 @@ public class GG_PlayerTrigger : MonoBehaviour
             Jetpack.Xdegree = 0;
             LastCheckpoint = transform.position; //Setting CheckPoint
             ResetTrajectory();
-            
+
 
         }
         if (col.tag == "Water")
         {
             SetLastCheckpoint();
             ResetTrajectory();
-         
+
         }
         if (col.tag == "Finish")
         {
-           //Reset bools && tweens for fallling
+            //Reset bools && tweens for fallling
             particleControl.StopJetpackParticle();
             particleControl.StartLangingPart();
             DOTween.Kill("Softlaunch" + this.transform.name);
@@ -81,8 +89,8 @@ public class GG_PlayerTrigger : MonoBehaviour
             ResetTrajectory();
             //Event
             FinishEvent.Raise();
-           
-          
+
+
         }
 
     }
@@ -116,7 +124,16 @@ public class GG_PlayerTrigger : MonoBehaviour
         }
 
     }
-
+    IEnumerator ResetTriggerFront()
+    {
+        yield return new WaitForSeconds(.5f);
+        CanCollideFront = true;
+    }
+    IEnumerator ResetTriggerUp()
+    {
+        yield return new WaitForSeconds(.5f);
+        CanCollideUp = true;
+    }
     //It called with Event 
     public void Retrylevel()
     {
