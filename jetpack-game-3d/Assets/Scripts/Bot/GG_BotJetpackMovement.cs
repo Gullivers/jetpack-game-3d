@@ -10,7 +10,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
     [SerializeField] float ForwardSpeed;
     [SerializeField] float UpSpeed;
     [SerializeField] float JetpackAngle;
-    [SerializeField] float SoftlaunchMin,SoftlaunchMax;
+    [SerializeField] float SoftlaunchMin, SoftlaunchMax;
     float MinDuration, maxDuration;
     [SerializeField] float SoftLaunchDuration;
     [SerializeField] Ease LaunchEase;
@@ -23,7 +23,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
 
     bool DummySoftlaunch2 = true;
     bool DummyFalling = true;
-    bool InWater = false;
+    [SerializeField] bool InWater = false;
 
     [HideInInspector]
     public int LoseTry;
@@ -53,7 +53,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
             if (DummyJetPackOn)
             {
                 particleControl.StartJetpackParticle();
-                DummyFalling = DummySoftlaunch = true;
+                DummyFalling = DummySoftlaunch = DummySoftlaunch2 = true;
                 DummyJetPackOn = false;
                 transform.DOLocalRotate(new Vector3(JetpackAngle, 0, 0), .5f).SetId("FallingAngle");
                 InWater = false;
@@ -68,21 +68,21 @@ public class GG_BotJetpackMovement : MonoBehaviour
         #region  Jetpack is Off
         else
         {
-
+            //if (botTrajectory.hitPoint.y <= -14 && !InWater) { InWater = true; }
             if (DummyFalling)
             {
                 DummyJetPackOn = true;
                 rb.useGravity = true;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f).SetId("FallingAngle");
+                transform.DOLocalRotate(new Vector3(0, 0, 0), .5f).SetId("FallingAngle"+transform.name);
                 DummyFalling = false;
 
             }
 
-            if (Vector3.Distance(transform.position, botTrajectory.hitPoint) > SoftlaunchMin &&Vector3.Distance(transform.position,  botTrajectory.hitPoint) < SoftlaunchMax
-             && DummySoftlaunch&& !InWater)
+            if (Vector3.Distance(transform.position, botTrajectory.hitPoint) > SoftlaunchMin && Vector3.Distance(transform.position, botTrajectory.hitPoint) < SoftlaunchMax
+             && DummySoftlaunch && !InWater)
             {
                 DummySoftlaunch = false;
-                 if (transform.position.y - botTrajectory.hitPoint.y > 4f && transform.position.z - botTrajectory.hitPoint.z < 2f && DummySoftlaunch2)
+                if (transform.position.y - botTrajectory.hitPoint.y > 4f && transform.position.z - botTrajectory.hitPoint.z < 2f && DummySoftlaunch2)
                 {
                     DummySoftlaunch2 = false;
                     //aAnimator.SetTrigger("Soft_Landing");
@@ -93,7 +93,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
 
                 }
                 particleControl.StartJetpackParticle();
-                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f).SetId("FallingAngle");
+                transform.DOLocalRotate(new Vector3(-JetpackAngle, 0, 0), .5f).SetId("FallingAngle"+transform.name);
 
             }
 
@@ -164,7 +164,7 @@ public class GG_BotJetpackMovement : MonoBehaviour
     {   //Y Z pos 
         //Y pos
         //transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.DOMoveY(botTrajectory.hitPoint.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch"+this.transform.name);
+        transform.DOMoveY(botTrajectory.hitPoint.y, SoftLaunchDuration).SetEase(LaunchEase).SetId("Softlaunch" + this.transform.name);
         //Z pos
         Sequence Zsq = DOTween.Sequence();
 

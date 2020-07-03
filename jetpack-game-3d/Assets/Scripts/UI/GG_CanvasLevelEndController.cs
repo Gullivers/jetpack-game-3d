@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GG_LevelEndController : MonoBehaviour
+public class GG_CanvasLevelEndController : MonoBehaviour
 {
     [SerializeField] Button LoseBtn, NextBtn;
-    [SerializeField] GG_JPLevels LevelAsset;
     bool LoseDummy, WinDummy;
 
 
@@ -26,7 +25,7 @@ public class GG_LevelEndController : MonoBehaviour
             WinDummy = true;
             LoseBtn.gameObject.SetActive(false);
             NextBtn.gameObject.SetActive(true);
-            LevelAsset.PlayerLevel = LevelAsset.PlayerLevel + 1;
+            PlayerPrefs.SetInt("PlayerLevel", PlayerPrefs.GetInt("PlayerLevel")+1);
         }
     }
     public void ResetDummys()
@@ -35,7 +34,5 @@ public class GG_LevelEndController : MonoBehaviour
         NextBtn.gameObject.SetActive(false);
         WinDummy = LoseDummy = false;
     }
-
-
 
 }

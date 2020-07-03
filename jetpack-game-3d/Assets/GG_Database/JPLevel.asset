@@ -12,15 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fb5097cbe19cac4a9e74bb0b0d9e3c1, type: 3}
   m_Name: JPLevel
   m_EditorClassIdentifier: 
-  PlayerLevel: 0
   Levels:
   - HowManyPlatform: 2
-    Bots: 000000000200000000000000
-  - HowManyPlatform: 3
     Bots: 00000000
-  - HowManyPlatform: 2
-    Bots: 0000000002000000
   - HowManyPlatform: 3
-    Bots: 000000000000000000000000
+    Bots: 0000000000000000
   - HowManyPlatform: 3
-    Bots: 000000000000000000000000
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000
+  - HowManyPlatform: 3
+    Bots: 0000000000000000

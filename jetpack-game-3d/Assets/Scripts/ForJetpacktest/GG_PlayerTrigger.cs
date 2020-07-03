@@ -13,6 +13,7 @@ public class GG_PlayerTrigger : MonoBehaviour
     [SerializeField] Transform PointerTrajectory;
     [SerializeField] GG_VoidEvent FinishEvent;
     Animator aAnimator;
+    bool CanCollide = true;
     private void Awake()
     {
         aAnimator = GetComponent<Animator>();
@@ -29,16 +30,19 @@ public class GG_PlayerTrigger : MonoBehaviour
         #endregion
         Jetpack.CanTap = true;
 
+
         if (col.tag == "PlatformFront")
         {
-            ResetTrajectory();
-            SetLastCheckpoint();
-            Debug.Log("Girdii Front");
-        }
-        else if (col.tag == "Platform")
-        {
 
+            SetLastCheckpoint();
             ResetTrajectory();
+            Debug.Log("PGirdii Front");
+            return;
+        }
+        if (col.tag == "Platform")
+        {
+            Debug.Log("PGirdii Platform");
+
             aAnimator.SetTrigger("JPoff");
             particleControl.StopJetpackParticle();
             particleControl.StartLangingPart();
@@ -54,20 +58,21 @@ public class GG_PlayerTrigger : MonoBehaviour
             transform.rotation = Quaternion.EulerAngles(0, 0, 0);
             Jetpack.Xdegree = 0;
             LastCheckpoint = transform.position;
-
-
-
+            ResetTrajectory();
+            return;
 
         }
         if (col.tag == "Water")
         {
-            ResetTrajectory();
+
             SetLastCheckpoint();
             Debug.Log("Girdii Water");
+            ResetTrajectory();
+            return;
         }
         if (col.tag == "Finish")
         {
-            ResetTrajectory();
+
             particleControl.StopJetpackParticle();
             particleControl.StartLangingPart();
             DOTween.Kill("Softlaunch" + this.transform.name);
@@ -79,8 +84,12 @@ public class GG_PlayerTrigger : MonoBehaviour
             Jetpack.Xdegree = 0;
             Jetpack.CanTap = true;
             rb.useGravity = false;
+            ResetTrajectory();
             FinishEvent.Raise();
+            Debug.Log("Finish raisee");
+            return;
         }
+
     }
 
     public void SetLastCheckpoint()
@@ -99,21 +108,25 @@ public class GG_PlayerTrigger : MonoBehaviour
         Jetpack.FallingOn = false;
 
 
+
     }
     void ResetTrajectory()
     {
+
         PointerTrajectory.position = new Vector3(0, 1, -20);
 
         for (int i = 0; i < Trajectory.childCount; i++)
         {
             Trajectory.GetChild(i).transform.position = new Vector3(0, 1, -20);
         }
+
     }
 
     public void Retrylevel()
     {
         ResetTrajectory();
         DOTween.KillAll();
+        aAnimator.SetTrigger("JPoff");
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
         Jetpack.FallingOn = false;

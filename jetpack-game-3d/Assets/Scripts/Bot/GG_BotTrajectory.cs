@@ -28,34 +28,37 @@ public class GG_BotTrajectory : MonoBehaviour
 
                 if (y1 < 0) { break; }
 
-                if (Physics.Raycast(new Ray(new Vector3(Player.position.x, y1, x1), Vector3.forward), out hit, .3f))
+                if (Physics.Raycast(new Ray(new Vector3(Player.position.x, y1, x1), Vector3.forward), out hit, .6f))
                 {
                     if ((hit.transform.tag == "Platform" || hit.transform.tag == "Finish")
                     && hit.transform != BotTrigger.LastTransform && BotTrigger.LastTransform != null)
                     {
                         hitPoint = hit.point;
+                       // Debug.Log(hit.transform.tag);
                         StartCoroutine(JectPack.WaitForRandom());
                         break;
                     }
 
                 }
-                else if (Physics.Raycast(new Ray(new Vector3(Player.position.x, y1, x1), Vector3.down), out hit, .3f))
+                else if (Physics.Raycast(new Ray(new Vector3(Player.position.x, y1, x1), Vector3.down), out hit, .6f))
                 {
                     if ((hit.transform.tag == "Platform" || hit.transform.tag == "Finish")
                     && hit.transform != BotTrigger.LastTransform && BotTrigger.LastTransform != null)
                     {
                         hitPoint = hit.point;
+                       // Debug.Log(hit.transform.tag);
                         StartCoroutine(JectPack.WaitForRandom());
                         break;
                     }
 
                 }
-                else if (Physics.Raycast(new Ray(new Vector3(Player.position.x, y1, x1), Vector3.up), out hit, .3f))
+                else if (Physics.Raycast(new Ray(new Vector3(Player.position.x, y1, x1), Vector3.up), out hit, .6f))
                 {
                     if ((hit.transform.tag == "Platform" || hit.transform.tag == "Finish")
                      && hit.transform != BotTrigger.LastTransform && BotTrigger.LastTransform != null)
                     {
                         hitPoint = hit.point;
+                       // Debug.Log(hit.transform.tag);
                         StartCoroutine(JectPack.WaitForRandom());
                         break;
                     }
